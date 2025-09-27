@@ -630,22 +630,8 @@ function App() {
                 const canShareFile = navigator.canShare && navigator.canShare({ files: [file] });
                 if (isIOS) {
                     // iOS tends to hang — try share but cut it off FAST
-                    try {
-                        const iosSharePromise = navigator.share({
-                            files: [file],
-                            title: `GW ${activeWeekData.week} Predictions`,
-                            text: `Check out my predictions for GW ${activeWeekData.week}!`,
-                        });
-                
-                        const timeout = new Promise((_, reject) =>
-                            setTimeout(() => reject(new Error("iOS share timed out")), 2000)
-                        );
-                
-                        await Promise.race([iosSharePromise, timeout]);
-                    } catch (e) {
-                        console.warn("iOS share failed or timed out, using fallback.");
-                        window.open(dataUrl, "_blank"); // fallback
-                    }
+                    window.open(dataUrl, "_blank"); // fallback
+                    return;
                 } else if (canShareFile) {
                         const timeout = new Promise((_, reject) =>
                             setTimeout(() => reject(new Error("Sharing timed out")), 10000)
