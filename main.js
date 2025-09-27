@@ -31,7 +31,8 @@ function QRCode({ value, bgColor = "#ffffff", fgColor = "#000000", level = "M", 
     });
 }
 
-const STORAGE_KEY = "pl-predictor-v6";
+const VERSION = "7";
+const STORAGE_KEY = `pl-predictor-v${VERSION}`;
 const THEME_STORAGE_KEY = "pl-predictor-theme";
 const DEFAULT_THEME = "dark";
 const TIME_ZONE = "Asia/Riyadh";
@@ -143,7 +144,7 @@ const CREST_LOOKUP = buildCrestLookup(CREST_CANONICAL_IDS, CREST_ALIAS_MAP);
 
 // Badge caching system
 const BADGE_CACHE = new Map();
-const BADGE_CACHE_KEY = "pl-predictor-badges-v1";
+const BADGE_CACHE_KEY = `pl-predictor-badges-v${VERSION}`;
 
 // Load cached badges on startup
 function loadCachedBadges() {
@@ -499,7 +500,7 @@ function App() {
                 homeScore.style.justifyContent = "center";
                 homeScore.style.fontWeight = "700";
                 homeScore.style.color = "white";
-                homeScore.style.fontSize = "26px";
+                homeScore.style.fontSize = "40px";
                 homeScore.textContent = stored.home || "0";
                 
                 const vsText = document.createElement("span");
@@ -518,7 +519,7 @@ function App() {
                 awayScore.style.justifyContent = "center";
                 awayScore.style.fontWeight = "700";
                 awayScore.style.color = "white";
-                awayScore.style.fontSize = "26px";
+                awayScore.style.fontSize = "40px";
                 awayScore.textContent = stored.away || "0";
                 
                 scoresRow.appendChild(homeScore);
@@ -605,7 +606,7 @@ function App() {
             
             const canvas = await window.html2canvas(exportContainer, {
                 backgroundColor: null,
-                scale: 3,
+                scale: 2,
                 useCORS: true,
                 logging: false,
                 imageTimeout: 15000,
