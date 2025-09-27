@@ -1,0 +1,7 @@
+﻿{
+  "name": "pl-predictor",
+  "version": "1.0.0",
+  "description": "Static Premier League matchweek predictor",
+  "private": true,
+  "license": "ISC"
+}

@@ -1,0 +1,2476 @@
+﻿{
+    "generatedAtUtc":  "2025-09-25T22:27:47.7683527Z",
+    "source":  "https://footballapi.pulselive.com/football/fixtures?comps=1\u0026compSeasons=777",
+    "weeks":  [
+                  {
+                      "week":  1,
+                      "matches":  [
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-08-15T19:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-08-16T11:30:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-08-16T14:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-08-16T14:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-08-16T14:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-08-16T16:30:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-08-17T13:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-08-17T13:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-08-17T15:30:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-08-18T19:00:00Z",
+                                          "venue":  "Elland Road"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  10,
+                      "matches":  [
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-11-01T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-11-01T15:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-11-01T15:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-11-01T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-11-01T15:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-11-01T17:30:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-11-01T20:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-11-02T14:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-11-02T16:30:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-11-03T20:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  11,
+                      "matches":  [
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-11-08T12:30:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-11-08T15:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-11-08T15:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-11-08T17:30:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-11-08T20:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-11-09T14:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-11-09T14:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-11-09T14:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-11-09T14:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-11-09T16:30:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  12,
+                      "matches":  [
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-11-22T12:30:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-11-22T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-11-22T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-11-22T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-11-22T15:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-11-22T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-11-22T17:30:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-11-23T14:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-11-23T16:30:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-11-24T20:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  13,
+                      "matches":  [
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-11-29T15:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-11-29T15:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-11-29T15:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-11-29T17:30:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-11-29T20:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-11-30T12:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-11-30T14:05:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-11-30T14:05:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-11-30T14:05:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-11-30T16:30:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  14,
+                      "matches":  [
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-12-03T20:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  15,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-12-06T15:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  16,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-12-13T15:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  17,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-12-20T15:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  18,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-12-27T15:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  19,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-12-30T20:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  2,
+                      "matches":  [
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-08-22T19:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-08-23T11:30:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-08-23T14:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-08-23T14:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-08-23T14:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-08-23T16:30:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-08-24T13:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-08-24T13:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-08-24T15:30:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-08-25T19:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  20,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-01-03T15:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  21,
+                      "matches":  [
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-01-07T20:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  22,
+                      "matches":  [
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-01-17T15:00:00Z",
+                                          "venue":  "Elland Road"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  23,
+                      "matches":  [
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-01-24T15:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  24,
+                      "matches":  [
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-01-31T15:00:00Z",
+                                          "venue":  "Elland Road"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  25,
+                      "matches":  [
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-02-07T15:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  26,
+                      "matches":  [
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-02-11T20:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  27,
+                      "matches":  [
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-02-21T15:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  28,
+                      "matches":  [
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-02-28T15:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  29,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-03-04T20:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  3,
+                      "matches":  [
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-08-30T11:30:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-08-30T14:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-08-30T14:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-08-30T14:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-08-30T14:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-08-30T16:30:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-08-31T13:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-08-31T13:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-08-31T15:30:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-08-31T18:00:00Z",
+                                          "venue":  "Villa Park"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  30,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-03-14T15:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  31,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-03-21T15:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  32,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-04-11T14:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  33,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-04-18T14:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  34,
+                      "matches":  [
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-04-25T14:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  35,
+                      "matches":  [
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-05-02T14:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  36,
+                      "matches":  [
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-05-09T14:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  37,
+                      "matches":  [
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2026-05-17T14:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  38,
+                      "matches":  [
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Everton",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2026-05-24T15:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  4,
+                      "matches":  [
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-09-13T11:30:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-09-13T14:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-09-13T14:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-09-13T14:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-09-13T14:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-09-13T14:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-09-13T16:30:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-09-13T19:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-09-14T13:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-09-14T15:30:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  5,
+                      "matches":  [
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-09-20T11:30:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-09-20T14:00:00Z",
+                                          "venue":  "London Stadium"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-09-20T14:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-09-20T14:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-09-20T14:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-09-20T16:30:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-09-20T19:00:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-09-21T13:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-09-21T13:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-09-21T15:30:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  6,
+                      "matches":  [
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-09-27T11:30:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-09-27T14:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-09-27T14:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-09-27T14:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-09-27T14:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-09-27T16:30:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-09-27T19:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-09-28T13:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-09-28T15:30:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-09-29T19:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  7,
+                      "matches":  [
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-10-03T19:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-10-04T11:30:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-10-04T14:00:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-10-04T14:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-10-04T16:30:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-10-05T13:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-10-05T13:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-10-05T13:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-10-05T13:00:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-10-05T15:30:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  8,
+                      "matches":  [
+                                      {
+                                          "home":  "Nottingham Forest",
+                                          "away":  "Chelsea",
+                                          "kickoff":  "2025-10-18T11:30:00Z",
+                                          "venue":  "The City Ground"
+                                      },
+                                      {
+                                          "home":  "Manchester City",
+                                          "away":  "Everton",
+                                          "kickoff":  "2025-10-18T14:00:00Z",
+                                          "venue":  "Etihad Stadium"
+                                      },
+                                      {
+                                          "home":  "Sunderland",
+                                          "away":  "Wolverhampton Wanderers",
+                                          "kickoff":  "2025-10-18T14:00:00Z",
+                                          "venue":  "Stadium of Light"
+                                      },
+                                      {
+                                          "home":  "Crystal Palace",
+                                          "away":  "Bournemouth",
+                                          "kickoff":  "2025-10-18T14:00:00Z",
+                                          "venue":  "Selhurst Park"
+                                      },
+                                      {
+                                          "home":  "Brighton \u0026 Hove Albion",
+                                          "away":  "Newcastle United",
+                                          "kickoff":  "2025-10-18T14:00:00Z",
+                                          "venue":  "American Express Stadium"
+                                      },
+                                      {
+                                          "home":  "Burnley",
+                                          "away":  "Leeds United",
+                                          "kickoff":  "2025-10-18T14:00:00Z",
+                                          "venue":  "Turf Moor"
+                                      },
+                                      {
+                                          "home":  "Fulham",
+                                          "away":  "Arsenal",
+                                          "kickoff":  "2025-10-18T16:30:00Z",
+                                          "venue":  "Craven Cottage"
+                                      },
+                                      {
+                                          "home":  "Tottenham Hotspur",
+                                          "away":  "Aston Villa",
+                                          "kickoff":  "2025-10-19T13:00:00Z",
+                                          "venue":  "Tottenham Hotspur Stadium"
+                                      },
+                                      {
+                                          "home":  "Liverpool",
+                                          "away":  "Manchester United",
+                                          "kickoff":  "2025-10-19T15:30:00Z",
+                                          "venue":  "Anfield"
+                                      },
+                                      {
+                                          "home":  "West Ham United",
+                                          "away":  "Brentford",
+                                          "kickoff":  "2025-10-20T19:00:00Z",
+                                          "venue":  "London Stadium"
+                                      }
+                                  ]
+                  },
+                  {
+                      "week":  9,
+                      "matches":  [
+                                      {
+                                          "home":  "Leeds United",
+                                          "away":  "West Ham United",
+                                          "kickoff":  "2025-10-24T19:00:00Z",
+                                          "venue":  "Elland Road"
+                                      },
+                                      {
+                                          "home":  "Newcastle United",
+                                          "away":  "Fulham",
+                                          "kickoff":  "2025-10-25T14:00:00Z",
+                                          "venue":  "St. James\u0027 Park"
+                                      },
+                                      {
+                                          "home":  "Chelsea",
+                                          "away":  "Sunderland",
+                                          "kickoff":  "2025-10-25T14:00:00Z",
+                                          "venue":  "Stamford Bridge"
+                                      },
+                                      {
+                                          "home":  "Manchester United",
+                                          "away":  "Brighton \u0026 Hove Albion",
+                                          "kickoff":  "2025-10-25T16:30:00Z",
+                                          "venue":  "Old Trafford"
+                                      },
+                                      {
+                                          "home":  "Brentford",
+                                          "away":  "Liverpool",
+                                          "kickoff":  "2025-10-25T19:00:00Z",
+                                          "venue":  "Gtech Community Stadium"
+                                      },
+                                      {
+                                          "home":  "Bournemouth",
+                                          "away":  "Nottingham Forest",
+                                          "kickoff":  "2025-10-26T14:00:00Z",
+                                          "venue":  "Vitality Stadium"
+                                      },
+                                      {
+                                          "home":  "Wolverhampton Wanderers",
+                                          "away":  "Burnley",
+                                          "kickoff":  "2025-10-26T14:00:00Z",
+                                          "venue":  "Molineux Stadium"
+                                      },
+                                      {
+                                          "home":  "Arsenal",
+                                          "away":  "Crystal Palace",
+                                          "kickoff":  "2025-10-26T14:00:00Z",
+                                          "venue":  "Emirates Stadium"
+                                      },
+                                      {
+                                          "home":  "Aston Villa",
+                                          "away":  "Manchester City",
+                                          "kickoff":  "2025-10-26T14:00:00Z",
+                                          "venue":  "Villa Park"
+                                      },
+                                      {
+                                          "home":  "Everton",
+                                          "away":  "Tottenham Hotspur",
+                                          "kickoff":  "2025-10-26T16:30:00Z",
+                                          "venue":  "Hill Dickinson Stadium"
+                                      }
+                                  ]
+                  }
+              ]
+}
