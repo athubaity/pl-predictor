@@ -606,7 +606,7 @@ function App() {
             
             const canvas = await window.html2canvas(exportContainer, {
                 backgroundColor: null,
-                scale: 1.5,
+                scale: 2,
                 useCORS: true,
                 logging: false,
                 imageTimeout: 15000,
@@ -621,18 +621,19 @@ function App() {
             const dataUrl = canvas.toDataURL("image/png", 0.92);
             const fileName = `gw-${activeWeekData.week}-predictions.png`;
 
-            const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+            // const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
 
             try {
                 const blob = await (await fetch(dataUrl)).blob();
                 const file = new File([blob], fileName, { type: "image/png" });
 
                 const canShareFile = navigator.canShare && navigator.canShare({ files: [file] });
-                if (isIOS) {
-                    // iOS tends to hang — try share but cut it off FAST
-                    window.open(dataUrl, "_blank"); // fallback
-                    return;
-                } else if (canShareFile) {
+                // if (isIOS) {
+                //     // iOS tends to hang — try share but cut it off FAST
+                //     window.open(dataUrl, "_blank"); // fallback
+                //     return;
+                // }
+                if (canShareFile) {
                         const timeout = new Promise((_, reject) =>
                             setTimeout(() => reject(new Error("Sharing timed out")), 10000)
                         );
@@ -645,6 +646,8 @@ function App() {
                             }),
                             timeout
                         ]);
+                } else {
+                    (new Error("Sharing timed out"))
                 }
             } catch (err) {
                 console.warn("Sharing failed:", err);
