@@ -606,7 +606,7 @@ function App() {
             
             const canvas = await window.html2canvas(exportContainer, {
                 backgroundColor: null,
-                scale: 2,
+                scale: 1.5,
                 useCORS: true,
                 logging: false,
                 imageTimeout: 15000,
