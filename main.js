@@ -624,30 +624,71 @@ function App() {
             const dataUrl = canvas.toDataURL("image/png", 0.92);
             const fileName = `gw-${activeWeekData.week}-predictions.png`;
 
-            if (navigator.canShare && navigator.canShare({ files: [] })) {
-                const blob = await (await fetch(dataUrl)).blob();
-                const file = new File([blob], fileName, { type: "image/png" });
+            // Try sharing first, with timeout and proper fallback
+            let shareSuccessful = false;
             
+            // Check if Web Share API is supported and can share files
+            const canShareFiles = navigator.canShare && 
+                                 typeof navigator.canShare === 'function' && 
+                                 navigator.canShare({ files: [] });
+            
+            if (canShareFiles) {
                 try {
-                    await navigator.share({
+                    // Convert data URL to blob
+                    const response = await fetch(dataUrl);
+                    if (!response.ok) {
+                        throw new Error("Failed to convert image to blob");
+                    }
+                    const blob = await response.blob();
+                    
+                    // Create file object
+                    const file = new File([blob], fileName, { type: "image/png" });
+                    
+                    // Create a promise that rejects after 10 seconds
+                    const sharePromise = navigator.share({
                         files: [file],
                         title: `GW ${activeWeekData.week} Predictions`,
                         text: `Check out my predictions for GW ${activeWeekData.week}!`,
                     });
+                    
+                    const timeoutPromise = new Promise((_, reject) => {
+                        setTimeout(() => reject(new Error("Share operation timed out")), 10000);
+                    });
+                    
+                    await Promise.race([sharePromise, timeoutPromise]);
+                    shareSuccessful = true;
+                    console.log("Share successful");
+                    
                 } catch (err) {
                     console.warn("Share failed:", err);
-                    alert("Sharing was cancelled or failed.");
+                    shareSuccessful = false;
+                    // Don't show alert here, just fall back to download
                 }
-            } else {
-                // fallback to download
+            }
+            
+            // If sharing failed or is not available, fall back to download
+            if (!shareSuccessful) {
                 const link = document.createElement("a");
                 link.download = fileName;
                 link.href = dataUrl;
                 link.click();
+                console.log("Downloaded image as fallback");
             }
             setExportState({ busy: false, error: null, last: { week: activeWeekData.week, payload, dataUrl } });
         } catch (error) {
-            const message = error instanceof Error ? error.message : "Failed to export predictions.";
+            console.error("Export failed:", error);
+            let message = "Failed to export predictions.";
+            
+            if (error instanceof Error) {
+                if (error.message.includes("timed out")) {
+                    message = "Export timed out. Please try again.";
+                } else if (error.message.includes("html2canvas")) {
+                    message = "Export tool not available. Please refresh the page and try again.";
+                } else {
+                    message = `Export failed: ${error.message}`;
+                }
+            }
+            
             setExportState({ busy: false, error: message, last: null });
         }
     }, [activeWeekData, predictions, exportState.busy, exportState.last]);
