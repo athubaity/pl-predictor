@@ -625,37 +625,39 @@ function App() {
 
             try {
                 const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.92));
+            
+                if (!blob) throw new Error("Canvas toBlob failed.");
+            
                 const file = new File([blob], fileName, { type: "image/png" });
+                const imageURL = URL.createObjectURL(blob); // fallback URL
+            
                 const canShareFile = navigator.canShare && navigator.canShare({ files: [file] });
             
-                if (isIOS || !canShareFile) {
-                    // iOS or unsupported – fallback to open image
-                    const imageURL = URL.createObjectURL(blob);
+                if (navigator.share && canShareFile && !isIOS) {
+                    const timeout = new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error("Sharing timed out")), 10000)
+                    );
+            
+                    await Promise.race([
+                        navigator.share({
+                            files: [file],
+                            title: `GW ${activeWeekData.week} Predictions`,
+                            text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                        }),
+                        timeout
+                    ]);
+                } else {
+                    // iOS or unsupported sharing – fallback to open image
                     window.open(imageURL, "_blank");
-                    return;
                 }
-            
-                const timeout = new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error("Sharing timed out")), 10000)
-                );
-            
-                await Promise.race([
-                    navigator.share({
-                        files: [file],
-                        title: `GW ${activeWeekData.week} Predictions`,
-                        text: `Check out my predictions for GW ${activeWeekData.week}!`,
-                    }),
-                    timeout
-                ]);
             } catch (err) {
                 console.warn("Sharing failed or timed out:", err);
                 // Emergency fallback: download
                 const link = document.createElement("a");
                 link.download = fileName;
-                link.href = dataUrl;
+                link.href = canvas.toDataURL("image/png", 0.92);
                 link.click();
             }
-            
             setExportState({ busy: false, error: null, last: { week: activeWeekData.week, payload, dataUrl } });
         } catch (error) {
             const message = error instanceof Error ? error.message : "Failed to export predictions.";
