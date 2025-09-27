@@ -627,37 +627,64 @@ function App() {
             // Try sharing first, with timeout and proper fallback
             let shareSuccessful = false;
             
-            // Check if Web Share API is supported and can share files
-            const canShareFiles = navigator.canShare && 
-                                 typeof navigator.canShare === 'function' && 
-                                 navigator.canShare({ files: [] });
+            // Detect if we're on a mobile device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                            (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
             
-            if (canShareFiles) {
+            // Check if Web Share API is supported
+            if (navigator.share) {
                 try {
-                    // Convert data URL to blob
-                    const response = await fetch(dataUrl);
-                    if (!response.ok) {
-                        throw new Error("Failed to convert image to blob");
+                    // First, try to share with files (for mobile browsers that support it)
+                    const canShareFiles = navigator.canShare && 
+                                         typeof navigator.canShare === 'function' && 
+                                         navigator.canShare({ files: [] });
+                    
+                    // Prioritize file sharing on mobile devices
+                    if (canShareFiles && isMobile) {
+                        // Convert data URL to blob
+                        const response = await fetch(dataUrl);
+                        if (!response.ok) {
+                            throw new Error("Failed to convert image to blob");
+                        }
+                        const blob = await response.blob();
+                        
+                        // Create file object
+                        const file = new File([blob], fileName, { type: "image/png" });
+                        
+                        // Create a promise that rejects after 10 seconds
+                        const sharePromise = navigator.share({
+                            files: [file],
+                            title: `GW ${activeWeekData.week} Predictions`,
+                            text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                        });
+                        
+                        const timeoutPromise = new Promise((_, reject) => {
+                            setTimeout(() => reject(new Error("Share operation timed out")), 10000);
+                        });
+                        
+                        await Promise.race([sharePromise, timeoutPromise]);
+                        shareSuccessful = true;
+                        console.log("Share successful with files");
+                    } else if (isMobile) {
+                        // For mobile devices without file sharing, try text/URL sharing
+                        const sharePromise = navigator.share({
+                            title: `GW ${activeWeekData.week} Predictions`,
+                            text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                            url: window.location.href
+                        });
+                        
+                        const timeoutPromise = new Promise((_, reject) => {
+                            setTimeout(() => reject(new Error("Share operation timed out")), 10000);
+                        });
+                        
+                        await Promise.race([sharePromise, timeoutPromise]);
+                        shareSuccessful = true;
+                        console.log("Share successful with text/URL on mobile");
+                    } else {
+                        // For desktop browsers, skip sharing and go directly to clipboard/download
+                        console.log("Desktop browser detected, skipping Web Share API");
+                        shareSuccessful = false;
                     }
-                    const blob = await response.blob();
-                    
-                    // Create file object
-                    const file = new File([blob], fileName, { type: "image/png" });
-                    
-                    // Create a promise that rejects after 10 seconds
-                    const sharePromise = navigator.share({
-                        files: [file],
-                        title: `GW ${activeWeekData.week} Predictions`,
-                        text: `Check out my predictions for GW ${activeWeekData.week}!`,
-                    });
-                    
-                    const timeoutPromise = new Promise((_, reject) => {
-                        setTimeout(() => reject(new Error("Share operation timed out")), 10000);
-                    });
-                    
-                    await Promise.race([sharePromise, timeoutPromise]);
-                    shareSuccessful = true;
-                    console.log("Share successful");
                     
                 } catch (err) {
                     console.warn("Share failed:", err);
@@ -666,15 +693,48 @@ function App() {
                 }
             }
             
-            // If sharing failed or is not available, fall back to download
+            // If sharing failed or is not available, try clipboard fallback for mobile
             if (!shareSuccessful) {
-                const link = document.createElement("a");
-                link.download = fileName;
-                link.href = dataUrl;
-                link.click();
-                console.log("Downloaded image as fallback");
+                // Try clipboard API as a fallback for mobile devices
+                if (navigator.clipboard && navigator.clipboard.write) {
+                    try {
+                        const response = await fetch(dataUrl);
+                        const blob = await response.blob();
+                        const clipboardItem = new ClipboardItem({
+                            'image/png': blob
+                        });
+                        await navigator.clipboard.write([clipboardItem]);
+                        console.log("Image copied to clipboard");
+                        shareSuccessful = true;
+                    } catch (clipboardErr) {
+                        console.warn("Clipboard fallback failed:", clipboardErr);
+                    }
+                }
+                
+                // Final fallback: download the image
+                if (!shareSuccessful) {
+                    const link = document.createElement("a");
+                    link.download = fileName;
+                    link.href = dataUrl;
+                    link.click();
+                    console.log("Downloaded image as final fallback");
+                }
             }
-            setExportState({ busy: false, error: null, last: { week: activeWeekData.week, payload, dataUrl } });
+            // Update export state with success message
+            const successMessage = shareSuccessful ? 
+                (navigator.share ? "Shared successfully!" : "Copied to clipboard!") : 
+                "Downloaded successfully!";
+            
+            setExportState({ 
+                busy: false, 
+                error: null, 
+                last: { 
+                    week: activeWeekData.week, 
+                    payload, 
+                    dataUrl,
+                    method: shareSuccessful ? (navigator.share ? "share" : "clipboard") : "download"
+                } 
+            });
         } catch (error) {
             console.error("Export failed:", error);
             let message = "Failed to export predictions.";
