@@ -31,7 +31,7 @@ function QRCode({ value, bgColor = "#ffffff", fgColor = "#000000", level = "M", 
     });
 }
 
-const VERSION = "9";
+const VERSION = "10";
 const STORAGE_KEY = `pl-predictor-v${VERSION}`;
 const THEME_STORAGE_KEY = "pl-predictor-theme";
 const DEFAULT_THEME = "dark";
