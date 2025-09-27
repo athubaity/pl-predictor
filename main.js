@@ -628,30 +628,41 @@ function App() {
                 const file = new File([blob], fileName, { type: "image/png" });
 
                 const canShareFile = navigator.canShare && navigator.canShare({ files: [file] });
-
-                if (!canShareFile || isIOS) {
-                    // iOS or unsupported – open image in new tab for manual share/save
-                    window.open(dataUrl, "_blank");
-                } else {
-                    // Supported environment – use native share
-                    // Timeout after 10 seconds
-                    const timeoutPromise = new Promise((_, reject) =>
-                        setTimeout(() => reject(new Error("Sharing timed out.")), 10000)
-                    );
-
-                    // Try share with timeout
-                    await Promise.race([
-                        navigator.share({
+                if (isIOS) {
+                    // iOS tends to hang — try share but cut it off FAST
+                    try {
+                        const iosSharePromise = navigator.share({
                             files: [file],
                             title: `GW ${activeWeekData.week} Predictions`,
                             text: `Check out my predictions for GW ${activeWeekData.week}!`,
-                        }),
-                        timeoutPromise
-                    ]);
+                        });
+                
+                        const timeout = new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error("iOS share timed out")), 2000)
+                        );
+                
+                        await Promise.race([iosSharePromise, timeout]);
+                    } catch (e) {
+                        console.warn("iOS share failed or timed out, using fallback.");
+                        window.open(dataUrl, "_blank"); // fallback
+                    }
+                } else if (canShareFile) {
+                        const timeout = new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error("Sharing timed out")), 10000)
+                        );
+                
+                        await Promise.race([
+                            navigator.share({
+                                files: [file],
+                                title: `GW ${activeWeekData.week} Predictions`,
+                                text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                            }),
+                            timeout
+                        ]);
                 }
             } catch (err) {
                 console.warn("Sharing failed:", err);
-                // 🧯 Emergency fallback – force download
+                // Emergency fallback – force download
                 const link = document.createElement("a");
                 link.download = fileName;
                 link.href = dataUrl;
