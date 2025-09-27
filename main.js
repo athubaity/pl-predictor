@@ -38,6 +38,127 @@ const DEFAULT_THEME = "dark";
 const TIME_ZONE = "Asia/Riyadh";
 const DEFAULT_CREST_URL = "https://crests.football-data.org/PL.svg";
 
+// Debug logger for mobile debugging
+let debugMessages = [];
+let debugPopup = null;
+
+function debugLog(message, type = 'info') {
+    const timestamp = new Date().toLocaleTimeString();
+    const logMessage = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+    
+    // Add to console
+    console.log(logMessage);
+    
+    // Add to debug messages array
+    debugMessages.push(logMessage);
+    
+    // Keep only last 20 messages
+    if (debugMessages.length > 20) {
+        debugMessages = debugMessages.slice(-20);
+    }
+    
+    // Update or create debug popup
+    updateDebugPopup();
+}
+
+function updateDebugPopup() {
+    if (!debugPopup) {
+        // Create debug popup
+        debugPopup = document.createElement('div');
+        debugPopup.id = 'debug-popup';
+        debugPopup.style.cssText = `
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+            max-height: 400px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 10000;
+            overflow-y: auto;
+            border: 1px solid #333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        `;
+        
+        // Add close button
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '×';
+        closeBtn.style.cssText = `
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+        `;
+        closeBtn.onclick = () => {
+            debugPopup.remove();
+            debugPopup = null;
+        };
+        debugPopup.appendChild(closeBtn);
+        
+        // Add clear button
+        const clearBtn = document.createElement('button');
+        clearBtn.textContent = 'Clear';
+        clearBtn.style.cssText = `
+            position: absolute;
+            top: 5px;
+            right: 30px;
+            background: #4444ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 2px 6px;
+            cursor: pointer;
+            font-size: 10px;
+        `;
+        clearBtn.onclick = () => {
+            debugMessages = [];
+            updateDebugPopup();
+        };
+        debugPopup.appendChild(clearBtn);
+        
+        document.body.appendChild(debugPopup);
+    }
+    
+    // Update content
+    const content = document.createElement('div');
+    content.style.cssText = `
+        margin-top: 25px;
+        white-space: pre-wrap;
+        word-break: break-word;
+    `;
+    content.textContent = debugMessages.join('\n');
+    
+    // Clear existing content (except buttons)
+    const existingContent = debugPopup.querySelector('div');
+    if (existingContent) {
+        existingContent.remove();
+    }
+    
+    debugPopup.appendChild(content);
+    
+    // Auto-scroll to bottom
+    debugPopup.scrollTop = debugPopup.scrollHeight;
+}
+
+function clearDebugLogs() {
+    debugMessages = [];
+    if (debugPopup) {
+        updateDebugPopup();
+    }
+}
+
 const FALLBACK_FIXTURES = [
     {
         week: 1,
@@ -623,13 +744,222 @@ function App() {
             
             const dataUrl = canvas.toDataURL("image/png", 0.92);
             const fileName = `gw-${activeWeekData.week}-predictions.png`;
-            const link = document.createElement("a");
-            link.download = fileName;
-            link.href = dataUrl;
-            link.click();
-            setExportState({ busy: false, error: null, last: { week: activeWeekData.week, payload, dataUrl } });
+
+            // Try sharing first, with timeout and proper fallback
+            let shareSuccessful = false;
+            
+            // Clear previous debug logs
+            clearDebugLogs();
+            debugLog("Starting export process", "info");
+            
+            // Detect if we're on a mobile device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                            (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
+            
+            // Detect iOS specifically
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            
+            debugLog(`Device detection - Mobile: ${isMobile}, iOS: ${isIOS}`, "info");
+            debugLog(`User Agent: ${navigator.userAgent}`, "info");
+            
+            // Check if Web Share API is supported
+            if (navigator.share && isMobile) {
+                debugLog("Web Share API detected, attempting sharing", "info");
+                try {
+                    // For iPhone Safari, try a simpler approach first
+                    if (isIOS) {
+                        // For iOS, try text sharing first (more reliable)
+                        debugLog("iOS detected, trying text sharing first", "info");
+                        
+                        const sharePromise = navigator.share({
+                            title: `GW ${activeWeekData.week} Predictions`,
+                            text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                            url: window.location.href
+                        });
+                        
+                        const timeoutPromise = new Promise((_, reject) => {
+                            setTimeout(() => reject(new Error("Share operation timed out")), 8000);
+                        });
+                        
+                        debugLog("Starting iOS text sharing with 8s timeout", "info");
+                        await Promise.race([sharePromise, timeoutPromise]);
+                        shareSuccessful = true;
+                        debugLog("Share successful with text/URL on iOS", "success");
+                        
+                    } else {
+                        // For Android, try file sharing first
+                        debugLog("Android detected, checking file sharing support", "info");
+                        const canShareFiles = navigator.canShare && 
+                                             typeof navigator.canShare === 'function' && 
+                                             navigator.canShare({ files: [] });
+                        
+                        debugLog(`Android file sharing support: ${canShareFiles}`, "info");
+                        
+                        if (canShareFiles) {
+                            debugLog("Android detected with file sharing support", "info");
+                            
+                            // Convert data URL to blob
+                            debugLog("Converting image to blob", "info");
+                            const response = await fetch(dataUrl);
+                            if (!response.ok) {
+                                throw new Error("Failed to convert image to blob");
+                            }
+                            const blob = await response.blob();
+                            
+                            // Create file object
+                            const file = new File([blob], fileName, { type: "image/png" });
+                            debugLog(`Created file object: ${fileName} (${blob.size} bytes)`, "info");
+                            
+                            // Create a promise that rejects after 8 seconds
+                            const sharePromise = navigator.share({
+                                files: [file],
+                                title: `GW ${activeWeekData.week} Predictions`,
+                                text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                            });
+                            
+                            const timeoutPromise = new Promise((_, reject) => {
+                                setTimeout(() => reject(new Error("Share operation timed out")), 8000);
+                            });
+                            
+                            debugLog("Starting Android file sharing with 8s timeout", "info");
+                            await Promise.race([sharePromise, timeoutPromise]);
+                            shareSuccessful = true;
+                            debugLog("Share successful with files on Android", "success");
+                        } else {
+                            // Android without file sharing
+                            debugLog("Android detected without file sharing support", "info");
+                            const sharePromise = navigator.share({
+                                title: `GW ${activeWeekData.week} Predictions`,
+                                text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                                url: window.location.href
+                            });
+                            
+                            const timeoutPromise = new Promise((_, reject) => {
+                                setTimeout(() => reject(new Error("Share operation timed out")), 8000);
+                            });
+                            
+                            debugLog("Starting Android text sharing with 8s timeout", "info");
+                            await Promise.race([sharePromise, timeoutPromise]);
+                            shareSuccessful = true;
+                            debugLog("Share successful with text/URL on Android", "success");
+                        }
+                    }
+                    
+                } catch (err) {
+                    debugLog(`Share failed: ${err.message}`, "error");
+                    shareSuccessful = false;
+                    // Don't show alert here, just fall back to download
+                }
+            } else if (!isMobile) {
+                // For desktop browsers, skip sharing and go directly to clipboard/download
+                debugLog("Desktop browser detected, skipping Web Share API", "info");
+                shareSuccessful = false;
+            } else {
+                debugLog("Web Share API not supported", "info");
+                shareSuccessful = false;
+            }
+            
+            // If sharing failed or is not available, try clipboard fallback for mobile
+            if (!shareSuccessful) {
+                debugLog("Sharing failed, trying clipboard fallback", "info");
+                
+                // Try clipboard API as a fallback for mobile devices
+                if (navigator.clipboard && navigator.clipboard.write && isMobile) {
+                    debugLog("Clipboard API available, attempting clipboard copy", "info");
+                    try {
+                        debugLog("Converting image to blob for clipboard", "info");
+                        const response = await fetch(dataUrl);
+                        const blob = await response.blob();
+                        const clipboardItem = new ClipboardItem({
+                            'image/png': blob
+                        });
+                        
+                        // Add timeout for clipboard operation too
+                        const clipboardPromise = navigator.clipboard.write([clipboardItem]);
+                        const clipboardTimeout = new Promise((_, reject) => {
+                            setTimeout(() => reject(new Error("Clipboard operation timed out")), 5000);
+                        });
+                        
+                        debugLog("Starting clipboard copy with 5s timeout", "info");
+                        await Promise.race([clipboardPromise, clipboardTimeout]);
+                        debugLog("Image copied to clipboard successfully", "success");
+                        shareSuccessful = true;
+                    } catch (clipboardErr) {
+                        debugLog(`Clipboard fallback failed: ${clipboardErr.message}`, "error");
+                        shareSuccessful = false;
+                    }
+                } else {
+                    debugLog("Clipboard API not available or not mobile", "info");
+                }
+                
+                // Final fallback: download the image
+                if (!shareSuccessful) {
+                    debugLog("All sharing methods failed, downloading image", "info");
+                    try {
+                        const link = document.createElement("a");
+                        link.download = fileName;
+                        link.href = dataUrl;
+                        link.click();
+                        debugLog("Downloaded image as final fallback", "success");
+                        shareSuccessful = true; // Mark as successful since download worked
+                    } catch (downloadErr) {
+                        debugLog(`Download fallback also failed: ${downloadErr.message}`, "error");
+                        shareSuccessful = false;
+                    }
+                }
+            }
+            
+            // Safety net: If we're on iOS and nothing worked, force download
+            if (!shareSuccessful && isIOS) {
+                debugLog("iOS safety net: forcing download", "info");
+                try {
+                    const link = document.createElement("a");
+                    link.download = fileName;
+                    link.href = dataUrl;
+                    link.click();
+                    shareSuccessful = true;
+                    debugLog("iOS safety net download successful", "success");
+                } catch (safetyErr) {
+                    debugLog(`iOS safety net download failed: ${safetyErr.message}`, "error");
+                }
+            }
+            
+            // Final result logging
+            const method = shareSuccessful ? (navigator.share ? "share" : "clipboard") : "download";
+            debugLog(`Export completed successfully using method: ${method}`, "success");
+            
+            // Update export state with success message
+            const successMessage = shareSuccessful ? 
+                (navigator.share ? "Shared successfully!" : "Copied to clipboard!") : 
+                "Downloaded successfully!";
+            
+            setExportState({ 
+                busy: false, 
+                error: null, 
+                last: { 
+                    week: activeWeekData.week, 
+                    payload, 
+                    dataUrl,
+                    method: method
+                } 
+            });
         } catch (error) {
-            const message = error instanceof Error ? error.message : "Failed to export predictions.";
+            debugLog(`Export failed with error: ${error.message}`, "error");
+            let message = "Failed to export predictions.";
+            
+            if (error instanceof Error) {
+                if (error.message.includes("timed out")) {
+                    message = "Export timed out. Please try again.";
+                    debugLog("Export timed out", "error");
+                } else if (error.message.includes("html2canvas")) {
+                    message = "Export tool not available. Please refresh the page and try again.";
+                    debugLog("html2canvas not available", "error");
+                } else {
+                    message = `Export failed: ${error.message}`;
+                    debugLog(`General export error: ${error.message}`, "error");
+                }
+            }
+            
             setExportState({ busy: false, error: message, last: null });
         }
     }, [activeWeekData, predictions, exportState.busy, exportState.last]);
