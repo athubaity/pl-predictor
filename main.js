@@ -38,9 +38,9 @@ const DEFAULT_THEME = "dark";
 const TIME_ZONE = "Asia/Riyadh";
 const DEFAULT_CREST_URL = "https://crests.football-data.org/PL.svg";
 
-// Debug logger for mobile debugging
-let debugMessages = [];
-let debugPopup = null;
+// Debug logger for mobile debugging with caching
+const DEBUG_STORAGE_KEY = `pl-predictor-debug-v${VERSION}`;
+const MAX_DEBUG_MESSAGES = 50;
 
 function debugLog(message, type = 'info') {
     const timestamp = new Date().toLocaleTimeString();
@@ -49,113 +49,48 @@ function debugLog(message, type = 'info') {
     // Add to console
     console.log(logMessage);
     
-    // Add to debug messages array
+    // Load existing debug messages from localStorage
+    let debugMessages = [];
+    try {
+        const stored = localStorage.getItem(DEBUG_STORAGE_KEY);
+        if (stored) {
+            debugMessages = JSON.parse(stored);
+        }
+    } catch (e) {
+        console.warn("Could not load debug messages from storage:", e);
+    }
+    
+    // Add new message
     debugMessages.push(logMessage);
     
-    // Keep only last 20 messages
-    if (debugMessages.length > 20) {
-        debugMessages = debugMessages.slice(-20);
+    // Keep only last MAX_DEBUG_MESSAGES messages
+    if (debugMessages.length > MAX_DEBUG_MESSAGES) {
+        debugMessages = debugMessages.slice(-MAX_DEBUG_MESSAGES);
     }
     
-    // Update or create debug popup
-    updateDebugPopup();
-}
-
-function updateDebugPopup() {
-    if (!debugPopup) {
-        // Create debug popup
-        debugPopup = document.createElement('div');
-        debugPopup.id = 'debug-popup';
-        debugPopup.style.cssText = `
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            width: 300px;
-            max-height: 400px;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 12px;
-            z-index: 10000;
-            overflow-y: auto;
-            border: 1px solid #333;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        `;
-        
-        // Add close button
-        const closeBtn = document.createElement('button');
-        closeBtn.textContent = '×';
-        closeBtn.style.cssText = `
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: #ff4444;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            line-height: 1;
-        `;
-        closeBtn.onclick = () => {
-            debugPopup.remove();
-            debugPopup = null;
-        };
-        debugPopup.appendChild(closeBtn);
-        
-        // Add clear button
-        const clearBtn = document.createElement('button');
-        clearBtn.textContent = 'Clear';
-        clearBtn.style.cssText = `
-            position: absolute;
-            top: 5px;
-            right: 30px;
-            background: #4444ff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 2px 6px;
-            cursor: pointer;
-            font-size: 10px;
-        `;
-        clearBtn.onclick = () => {
-            debugMessages = [];
-            updateDebugPopup();
-        };
-        debugPopup.appendChild(clearBtn);
-        
-        document.body.appendChild(debugPopup);
+    // Save to localStorage
+    try {
+        localStorage.setItem(DEBUG_STORAGE_KEY, JSON.stringify(debugMessages));
+    } catch (e) {
+        console.warn("Could not save debug messages to storage:", e);
     }
-    
-    // Update content
-    const content = document.createElement('div');
-    content.style.cssText = `
-        margin-top: 25px;
-        white-space: pre-wrap;
-        word-break: break-word;
-    `;
-    content.textContent = debugMessages.join('\n');
-    
-    // Clear existing content (except buttons)
-    const existingContent = debugPopup.querySelector('div');
-    if (existingContent) {
-        existingContent.remove();
-    }
-    
-    debugPopup.appendChild(content);
-    
-    // Auto-scroll to bottom
-    debugPopup.scrollTop = debugPopup.scrollHeight;
 }
 
 function clearDebugLogs() {
-    debugMessages = [];
-    if (debugPopup) {
-        updateDebugPopup();
+    try {
+        localStorage.removeItem(DEBUG_STORAGE_KEY);
+    } catch (e) {
+        console.warn("Could not clear debug messages from storage:", e);
+    }
+}
+
+function getDebugMessages() {
+    try {
+        const stored = localStorage.getItem(DEBUG_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+        console.warn("Could not load debug messages from storage:", e);
+        return [];
     }
 }
 
@@ -1021,7 +956,8 @@ function App() {
             onScoreChange: handleScoreChange,
             captureRef
         }),
-        h(SummaryPanel, { summaryRows })
+        h(SummaryPanel, { summaryRows }),
+        h(DebugPanel)
     );
 }
 
@@ -1186,6 +1122,121 @@ function SummaryPanel({ summaryRows }) {
                       )
                   )
               )
+    );
+}
+
+function DebugPanel() {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [debugMessages, setDebugMessages] = useState([]);
+    
+    useEffect(() => {
+        // Load debug messages on component mount
+        setDebugMessages(getDebugMessages());
+        
+        // Set up interval to check for new messages
+        const interval = setInterval(() => {
+            setDebugMessages(getDebugMessages());
+        }, 1000);
+        
+        return () => clearInterval(interval);
+    }, []);
+    
+    const handleClear = () => {
+        clearDebugLogs();
+        setDebugMessages([]);
+    };
+    
+    const handleToggle = () => {
+        setIsExpanded(!isExpanded);
+    };
+    
+    if (debugMessages.length === 0) {
+        return null; // Don't show debug panel if no messages
+    }
+    
+    return h(
+        "section",
+        { 
+            className: "debug-panel",
+            style: {
+                position: "fixed",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: "rgba(0, 0, 0, 0.95)",
+                color: "#fff",
+                fontFamily: "monospace",
+                fontSize: "12px",
+                zIndex: 1000,
+                borderTop: "1px solid #333",
+                maxHeight: isExpanded ? "300px" : "40px",
+                overflow: "hidden",
+                transition: "max-height 0.3s ease"
+            }
+        },
+        h(
+            "div",
+            {
+                style: {
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "8px 12px",
+                    background: "#222",
+                    borderBottom: "1px solid #333"
+                }
+            },
+            h(
+                "button",
+                {
+                    onClick: handleToggle,
+                    style: {
+                        background: "none",
+                        border: "none",
+                        color: "#fff",
+                        cursor: "pointer",
+                        fontSize: "14px",
+                        marginRight: "10px",
+                        padding: "4px"
+                    }
+                },
+                isExpanded ? "▼" : "▲"
+            ),
+            h(
+                "span",
+                { style: { flex: 1, fontWeight: "bold" } },
+                `Debug Log (${debugMessages.length} messages)`
+            ),
+            h(
+                "button",
+                {
+                    onClick: handleClear,
+                    style: {
+                        background: "#ff4444",
+                        border: "none",
+                        color: "#fff",
+                        cursor: "pointer",
+                        fontSize: "10px",
+                        padding: "4px 8px",
+                        borderRadius: "4px"
+                    }
+                },
+                "Clear"
+            )
+        ),
+        isExpanded && h(
+            "div",
+            {
+                style: {
+                    padding: "8px 12px",
+                    maxHeight: "250px",
+                    overflowY: "auto",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    lineHeight: "1.4"
+                }
+            },
+            debugMessages.join('\n')
+        )
     );
 }
 
