@@ -40,6 +40,7 @@ const DEFAULT_CREST_URL = "https://crests.football-data.org/PL.svg";
 
 // Debug logger for mobile debugging with caching
 const DEBUG_STORAGE_KEY = `pl-predictor-debug-v${VERSION}`;
+const DEBUG_TOGGLE_STORAGE_KEY = `pl-predictor-debug-toggle-v${VERSION}`;
 const MAX_DEBUG_MESSAGES = 50;
 
 function debugLog(message, type = 'info', category = 'general') {
@@ -103,6 +104,24 @@ function getDebugMessages() {
 
 function getDebugMessageCount() {
     return getDebugMessages().length;
+}
+
+function getDebugToggleState() {
+    try {
+        const stored = localStorage.getItem(DEBUG_TOGGLE_STORAGE_KEY);
+        return stored === 'true';
+    } catch (e) {
+        console.warn("Could not load debug toggle state from storage:", e);
+        return false;
+    }
+}
+
+function setDebugToggleState(enabled) {
+    try {
+        localStorage.setItem(DEBUG_TOGGLE_STORAGE_KEY, enabled.toString());
+    } catch (e) {
+        console.warn("Could not save debug toggle state to storage:", e);
+    }
 }
 
 const FALLBACK_FIXTURES = [
@@ -388,12 +407,18 @@ function App() {
     }, []);
 
     const handleExport = useCallback(async () => {
+        debugLog("Export function called", "info", "export");
+        
         if (!activeWeekData) {
+            debugLog("No active week data - export cancelled", "warning", "export");
             return;
         }
         if (exportState.busy) {
+            debugLog("Export already in progress - cancelled", "warning", "export");
             return;
         }
+        
+        debugLog("Setting export state to busy", "info", "export");
         setExportState({ busy: true, error: null, last: exportState.last });
         try {
             if (typeof window === "undefined" || typeof window.html2canvas !== "function") {
@@ -697,6 +722,7 @@ function App() {
             // Clear previous debug logs
             clearDebugLogs();
             debugLog("Starting export process", "info", "export");
+            debugLog("Export button clicked - process initiated", "info", "export");
             
             // Detect if we're on a mobile device
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
@@ -968,6 +994,7 @@ function App() {
             captureRef
         }),
         h(SummaryPanel, { summaryRows }),
+        h(DebugToggle),
         h(DebugPanel)
     );
 }
@@ -1136,17 +1163,60 @@ function SummaryPanel({ summaryRows }) {
     );
 }
 
+function DebugToggle() {
+    const [isEnabled, setIsEnabled] = useState(getDebugToggleState);
+    
+    const handleToggle = () => {
+        const newState = !isEnabled;
+        setIsEnabled(newState);
+        setDebugToggleState(newState);
+    };
+    
+    return h(
+        "div",
+        {
+            style: {
+                position: "fixed",
+                bottom: "10px",
+                right: "10px",
+                zIndex: 1001
+            }
+        },
+        h(
+            "button",
+            {
+                onClick: handleToggle,
+                style: {
+                    background: isEnabled ? "#10b981" : "#6b7280",
+                    border: "none",
+                    color: "#fff",
+                    padding: "8px 12px",
+                    borderRadius: "6px",
+                    fontSize: "12px",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
+                    transition: "background-color 0.2s ease"
+                }
+            },
+            isEnabled ? "🐛 Debug ON" : "🐛 Debug OFF"
+        )
+    );
+}
+
 function DebugPanel() {
     const [isExpanded, setIsExpanded] = useState(false);
     const [debugMessages, setDebugMessages] = useState([]);
+    const [isEnabled, setIsEnabled] = useState(getDebugToggleState);
     
     useEffect(() => {
         // Load debug messages on component mount
         setDebugMessages(getDebugMessages());
         
-        // Set up interval to check for new messages
+        // Set up interval to check for new messages and toggle state
         const interval = setInterval(() => {
             setDebugMessages(getDebugMessages());
+            setIsEnabled(getDebugToggleState());
         }, 500); // Check more frequently for real-time updates
         
         return () => clearInterval(interval);
@@ -1181,8 +1251,8 @@ function DebugPanel() {
         }
     };
     
-    if (debugMessages.length === 0) {
-        return null; // Don't show debug panel if no messages
+    if (!isEnabled || debugMessages.length === 0) {
+        return null; // Don't show debug panel if not enabled or no messages
     }
     
     return h(
@@ -1418,7 +1488,6 @@ function filterCurrentWeekMatches(fixtures) {
             // Hide matches that started more than 20 minutes ago
             const twentyMinutesAgo = new Date(now.getTime() - 20 * 60 * 1000);
             if (kickoffDate < twentyMinutesAgo) {
-                debugLog(`Filtering out match ${match.home} vs ${match.away} - started more than 20 minutes ago`, "info", "filtering");
                 return false;
             }
             
@@ -1427,11 +1496,7 @@ function filterCurrentWeekMatches(fixtures) {
             const matchEndTime = new Date(kickoffDate.getTime() + 2.5 * 60 * 60 * 1000);
             const isCurrent = kickoffDate <= matchEndTime && kickoffDate >= new Date(now.getTime() - 2.5 * 60 * 60 * 1000);
             
-            if (isCurrent) {
-                const timeDiff = Math.round((kickoffDate.getTime() - now.getTime()) / (1000 * 60)); // minutes
-                const status = timeDiff > 0 ? `starts in ${timeDiff} minutes` : `started ${Math.abs(timeDiff)} minutes ago`;
-                debugLog(`Including match ${match.home} vs ${match.away} - ${status}`, "info", "filtering");
-            }
+            // No debug logging for filtering
             
             return isCurrent;
         });
