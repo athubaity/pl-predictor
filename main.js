@@ -464,7 +464,7 @@ function App() {
                 homeBadge.crossOrigin = "anonymous";
                 homeBadge.src = await getBadge(match.home);
                 homeBadge.style.width = "80px";
-                homeBadge.style.height = "90px";
+                homeBadge.style.height = "80px";
                 homeBadge.style.borderRadius = "10%";
                 homeBadge.style.objectFit = "contain";
                 homeBadge.style.background = "none";
@@ -555,7 +555,7 @@ function App() {
                 awayBadge.crossOrigin = "anonymous";
                 awayBadge.src = await getBadge(match.away);
                 awayBadge.style.width = "80px";
-                awayBadge.style.height = "90px";
+                awayBadge.style.height = "80px";
                 awayBadge.style.borderRadius = "10%";
                 awayBadge.style.objectFit = "contain";
                 awayBadge.style.background = "none";
@@ -621,41 +621,25 @@ function App() {
             const dataUrl = canvas.toDataURL("image/png", 0.92);
             const fileName = `gw-${activeWeekData.week}-predictions.png`;
 
-            const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-
-            try {
-                const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 0.92));
-            
-                if (!blob) throw new Error("Canvas toBlob failed.");
-            
+            if (navigator.canShare && navigator.canShare({ files: [] })) {
+                const blob = await (await fetch(dataUrl)).blob();
                 const file = new File([blob], fileName, { type: "image/png" });
-                const imageURL = URL.createObjectURL(blob); // fallback URL
             
-                const canShareFile = navigator.canShare && navigator.canShare({ files: [file] });
-            
-                if (navigator.share && canShareFile && !isIOS) {
-                    const timeout = new Promise((_, reject) =>
-                        setTimeout(() => reject(new Error("Sharing timed out")), 10000)
-                    );
-            
-                    await Promise.race([
-                        navigator.share({
-                            files: [file],
-                            title: `GW ${activeWeekData.week} Predictions`,
-                            text: `Check out my predictions for GW ${activeWeekData.week}!`,
-                        }),
-                        timeout
-                    ]);
-                } else {
-                    // iOS or unsupported sharing – fallback to open image
-                    window.open(imageURL, "_blank");
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: `GW ${activeWeekData.week} Predictions`,
+                        text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                    });
+                } catch (err) {
+                    console.warn("Share failed:", err);
+                    alert("Sharing was cancelled or failed.");
                 }
-            } catch (err) {
-                console.warn("Sharing failed or timed out:", err);
-                // Emergency fallback: download
+            } else {
+                // fallback to download
                 const link = document.createElement("a");
                 link.download = fileName;
-                link.href = canvas.toDataURL("image/png", 0.92);
+                link.href = dataUrl;
                 link.click();
             }
             setExportState({ busy: false, error: null, last: { week: activeWeekData.week, payload, dataUrl } });
