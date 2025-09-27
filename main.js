@@ -31,7 +31,7 @@ function QRCode({ value, bgColor = "#ffffff", fgColor = "#000000", level = "M", 
     });
 }
 
-const VERSION = "10";
+const VERSION = "11";
 const STORAGE_KEY = `pl-predictor-v${VERSION}`;
 const THEME_STORAGE_KEY = "pl-predictor-theme";
 const DEFAULT_THEME = "dark";
@@ -420,13 +420,20 @@ function App() {
         
         debugLog("Setting export state to busy", "info", "export");
         setExportState({ busy: true, error: null, last: exportState.last });
+        
         try {
+            debugLog("Checking html2canvas availability", "info", "export");
             if (typeof window === "undefined" || typeof window.html2canvas !== "function") {
+                debugLog("html2canvas not available - throwing error", "error", "export");
                 throw new Error("html2canvas is not available in this browser.");
             }
+            debugLog("html2canvas is available", "success", "export");
             
+            debugLog("Building export payload", "info", "export");
             const payload = buildExportPayload(activeWeekData, predictions);
+            debugLog("Export payload built successfully", "success", "export");
             
+            debugLog("Creating export container", "info", "export");
             // Create a special export container
             const exportContainer = document.createElement("div");
             exportContainer.style.position = "absolute";
@@ -442,7 +449,9 @@ function App() {
             exportContainer.style.display = "flex";
             exportContainer.style.flexDirection = "column";
             exportContainer.style.alignItems = "center";
+            debugLog("Export container styled", "success", "export");
             
+            debugLog("Creating QR code section", "info", "export");
             // Create QR code section at the top
             const qrSection = document.createElement("div");
             qrSection.style.display = "flex";
@@ -452,15 +461,20 @@ function App() {
             qrSection.style.gap = "25px";
             qrSection.style.width = "100%";
             
+            debugLog("Creating QR code canvas", "info", "export");
             // Create QR code
             const qrCanvas = document.createElement("canvas");
             qrCanvas.width = 240;
             qrCanvas.height = 240;
+            debugLog("QR canvas created", "success", "export");
             
             // Ensure QR code is properly generated
+            debugLog("Generating QR code data", "info", "export");
             const qrData = JSON.stringify(payload, null, 0);
             console.log("QR Data:", qrData); // Debug log
+            debugLog("QR data generated", "success", "export");
             
+            debugLog("Generating QR code image", "info", "export");
             await QRCodeLib.toCanvas(qrCanvas, qrData, {
                 color: {
                     dark: "#000000",
@@ -471,7 +485,9 @@ function App() {
                 width: 240,
                 height: 240
             });
+            debugLog("QR code generated successfully", "success", "export");
             
+            debugLog("Creating QR code container", "info", "export");
             // QR code container
             const qrContainer = document.createElement("div");
             qrContainer.style.background = "#ffffff";
@@ -677,11 +693,15 @@ function App() {
             exportContainer.appendChild(qrSection);
             exportContainer.appendChild(matchesSection);
             
+            debugLog("Adding export container to DOM", "info", "export");
             // Add to DOM temporarily
             document.body.appendChild(exportContainer);
+            debugLog("Export container added to DOM", "success", "export");
             
+            debugLog("Waiting for images to load", "info", "export");
             // Wait for all images to load
             const images = exportContainer.querySelectorAll('img');
+            debugLog(`Found ${images.length} images to load`, "info", "export");
             await Promise.all(Array.from(images).map(img => {
                 img.crossOrigin = "anonymous";
                 return new Promise((resolve) => {
@@ -696,10 +716,15 @@ function App() {
                 });
             }));
             
+            debugLog("Images loaded, waiting for rendering", "success", "export");
             // Small delay to ensure rendering is complete
             await new Promise(resolve => setTimeout(resolve, 500));
+            debugLog("Rendering delay completed", "success", "export");
             
-            const canvas = await window.html2canvas(exportContainer, {
+            debugLog("Starting html2canvas conversion", "info", "export");
+            
+            // Add timeout wrapper to prevent hanging
+            const html2canvasPromise = window.html2canvas(exportContainer, {
                 backgroundColor: null,
                 scale: 2,
                 useCORS: true,
@@ -710,19 +735,25 @@ function App() {
                 scrollY: 0
             });
             
+            const timeoutPromise = new Promise((_, reject) => {
+                setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 30000);
+            });
+            
+            const canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
+            debugLog("html2canvas conversion completed", "success", "export");
+            
+            debugLog("Cleaning up export container", "info", "export");
             // Clean up
             document.body.removeChild(exportContainer);
+            debugLog("Export container removed from DOM", "success", "export");
             
+            debugLog("Converting canvas to data URL", "info", "export");
             const dataUrl = canvas.toDataURL("image/png", 0.92);
             const fileName = `gw-${activeWeekData.week}-predictions.png`;
+            debugLog("Canvas converted to data URL", "success", "export");
 
             // Try sharing first, with timeout and proper fallback
             let shareSuccessful = false;
-            
-            // Clear previous debug logs
-            clearDebugLogs();
-            debugLog("Starting export process", "info", "export");
-            debugLog("Export button clicked - process initiated", "info", "export");
             
             // Detect if we're on a mobile device
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
