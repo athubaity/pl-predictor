@@ -253,10 +253,13 @@ function App() {
             if (cancelled) {
                 return;
             }
-            setFixtures(resolvedFixtures);
+            // Filter fixtures to only show current week matches that are still being played
+            const filteredFixtures = filterCurrentWeekMatches(resolvedFixtures);
+            setFixtures(filteredFixtures);
             setNotice(fallbackReason);
-            const firstWeek = resolvedFixtures.length ? resolvedFixtures[0].week : null;
-            setActiveWeek(firstWeek);
+            // Automatically set to current week instead of first week
+            const currentWeek = getCurrentWeek(resolvedFixtures);
+            setActiveWeek(currentWeek);
             setLoading(false);
         }
 
@@ -921,6 +924,37 @@ function normaliseFixtures(input) {
         })
         .filter(Boolean)
         .sort((a, b) => a.week - b.week);
+}
+
+function getCurrentWeek(fixtures) {
+    const now = new Date();
+    const currentWeek = fixtures.find(week => {
+        return week.matches.some(match => {
+            if (!match.kickoff) return false;
+            const kickoffDate = new Date(match.kickoff);
+            // Check if the match is currently being played or within the next 7 days
+            const weekFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+            const matchEndTime = new Date(kickoffDate.getTime() + 2.5 * 60 * 60 * 1000);
+            return (kickoffDate <= matchEndTime && kickoffDate >= new Date(now.getTime() - 2.5 * 60 * 60 * 1000)) || 
+                   (kickoffDate >= now && kickoffDate <= weekFromNow);
+        });
+    });
+    return currentWeek ? currentWeek.week : null;
+}
+
+function filterCurrentWeekMatches(fixtures) {
+    const now = new Date();
+    return fixtures.map(week => {
+        const filteredMatches = week.matches.filter(match => {
+            if (!match.kickoff) return false;
+            const kickoffDate = new Date(match.kickoff);
+            // Show matches that are currently being played or haven't started yet
+            // Consider a match as "current" if it's within 2.5 hours of kickoff (allowing for match duration + extra time)
+            const matchEndTime = new Date(kickoffDate.getTime() + 2.5 * 60 * 60 * 1000);
+            return kickoffDate <= matchEndTime && kickoffDate >= new Date(now.getTime() - 2.5 * 60 * 60 * 1000);
+        });
+        return { ...week, matches: filteredMatches };
+    }).filter(week => week.matches.length > 0);
 }
 
 function normaliseMatch(match) {
