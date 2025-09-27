@@ -620,22 +620,38 @@ function App() {
             
             const dataUrl = canvas.toDataURL("image/png", 0.92);
             const fileName = `gw-${activeWeekData.week}-predictions.png`;
-            if (navigator.canShare && navigator.canShare({ files: [] })) {
+
+            const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+
+            try {
                 const blob = await (await fetch(dataUrl)).blob();
                 const file = new File([blob], fileName, { type: "image/png" });
-            
-                try {
-                    await navigator.share({
-                        files: [file],
-                        title: `GW ${activeWeekData.week} Predictions`,
-                        text: `Check out my predictions for GW ${activeWeekData.week}!`,
-                    });
-                } catch (err) {
-                    console.warn("Share failed:", err);
-                    alert("Sharing was cancelled or failed.");
+
+                const canShareFile = navigator.canShare && navigator.canShare({ files: [file] });
+
+                if (!canShareFile || isIOS) {
+                    // iOS or unsupported – open image in new tab for manual share/save
+                    window.open(dataUrl, "_blank");
+                } else {
+                    // Supported environment – use native share
+                    // Timeout after 10 seconds
+                    const timeoutPromise = new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error("Sharing timed out.")), 10000)
+                    );
+
+                    // Try share with timeout
+                    await Promise.race([
+                        navigator.share({
+                            files: [file],
+                            title: `GW ${activeWeekData.week} Predictions`,
+                            text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                        }),
+                        timeoutPromise
+                    ]);
                 }
-            } else {
-                // fallback to download
+            } catch (err) {
+                console.warn("Sharing failed:", err);
+                // 🧯 Emergency fallback – force download
                 const link = document.createElement("a");
                 link.download = fileName;
                 link.href = dataUrl;
