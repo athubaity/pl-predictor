@@ -42,12 +42,19 @@ const DEFAULT_CREST_URL = "https://crests.football-data.org/PL.svg";
 const DEBUG_STORAGE_KEY = `pl-predictor-debug-v${VERSION}`;
 const MAX_DEBUG_MESSAGES = 50;
 
-function debugLog(message, type = 'info') {
+function debugLog(message, type = 'info', category = 'general') {
     const timestamp = new Date().toLocaleTimeString();
-    const logMessage = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+    const debugEntry = {
+        id: Date.now() + Math.random(), // Unique ID for each message
+        timestamp: timestamp,
+        type: type.toUpperCase(),
+        category: category,
+        message: message,
+        fullMessage: `[${timestamp}] ${type.toUpperCase()}: ${message}`
+    };
     
     // Add to console
-    console.log(logMessage);
+    console.log(debugEntry.fullMessage);
     
     // Load existing debug messages from localStorage
     let debugMessages = [];
@@ -61,7 +68,7 @@ function debugLog(message, type = 'info') {
     }
     
     // Add new message
-    debugMessages.push(logMessage);
+    debugMessages.push(debugEntry);
     
     // Keep only last MAX_DEBUG_MESSAGES messages
     if (debugMessages.length > MAX_DEBUG_MESSAGES) {
@@ -92,6 +99,10 @@ function getDebugMessages() {
         console.warn("Could not load debug messages from storage:", e);
         return [];
     }
+}
+
+function getDebugMessageCount() {
+    return getDebugMessages().length;
 }
 
 const FALLBACK_FIXTURES = [
@@ -685,7 +696,7 @@ function App() {
             
             // Clear previous debug logs
             clearDebugLogs();
-            debugLog("Starting export process", "info");
+            debugLog("Starting export process", "info", "export");
             
             // Detect if we're on a mobile device
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
@@ -694,17 +705,17 @@ function App() {
             // Detect iOS specifically
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
             
-            debugLog(`Device detection - Mobile: ${isMobile}, iOS: ${isIOS}`, "info");
-            debugLog(`User Agent: ${navigator.userAgent}`, "info");
+            debugLog(`Device detection - Mobile: ${isMobile}, iOS: ${isIOS}`, "info", "device");
+            debugLog(`User Agent: ${navigator.userAgent}`, "info", "device");
             
             // Check if Web Share API is supported
             if (navigator.share && isMobile) {
-                debugLog("Web Share API detected, attempting sharing", "info");
+                debugLog("Web Share API detected, attempting sharing", "info", "sharing");
                 try {
                     // For iPhone Safari, try a simpler approach first
                     if (isIOS) {
                         // For iOS, try text sharing first (more reliable)
-                        debugLog("iOS detected, trying text sharing first", "info");
+                        debugLog("iOS detected, trying text sharing first", "info", "sharing");
                         
                         const sharePromise = navigator.share({
                             title: `GW ${activeWeekData.week} Predictions`,
@@ -716,10 +727,10 @@ function App() {
                             setTimeout(() => reject(new Error("Share operation timed out")), 8000);
                         });
                         
-                        debugLog("Starting iOS text sharing with 8s timeout", "info");
+                        debugLog("Starting iOS text sharing with 8s timeout", "info", "sharing");
                         await Promise.race([sharePromise, timeoutPromise]);
                         shareSuccessful = true;
-                        debugLog("Share successful with text/URL on iOS", "success");
+                        debugLog("Share successful with text/URL on iOS", "success", "sharing");
                         
                     } else {
                         // For Android, try file sharing first
@@ -1136,7 +1147,7 @@ function DebugPanel() {
         // Set up interval to check for new messages
         const interval = setInterval(() => {
             setDebugMessages(getDebugMessages());
-        }, 1000);
+        }, 500); // Check more frequently for real-time updates
         
         return () => clearInterval(interval);
     }, []);
@@ -1148,6 +1159,26 @@ function DebugPanel() {
     
     const handleToggle = () => {
         setIsExpanded(!isExpanded);
+    };
+    
+    const getTypeColor = (type) => {
+        switch (type) {
+            case 'SUCCESS': return '#4ade80';
+            case 'ERROR': return '#f87171';
+            case 'WARNING': return '#fbbf24';
+            case 'INFO': return '#60a5fa';
+            default: return '#9ca3af';
+        }
+    };
+    
+    const getCategoryColor = (category) => {
+        switch (category) {
+            case 'device': return '#8b5cf6';
+            case 'sharing': return '#06b6d4';
+            case 'filtering': return '#10b981';
+            case 'export': return '#f59e0b';
+            default: return '#6b7280';
+        }
     };
     
     if (debugMessages.length === 0) {
@@ -1166,10 +1197,10 @@ function DebugPanel() {
                 background: "rgba(0, 0, 0, 0.95)",
                 color: "#fff",
                 fontFamily: "monospace",
-                fontSize: "12px",
+                fontSize: "11px",
                 zIndex: 1000,
                 borderTop: "1px solid #333",
-                maxHeight: isExpanded ? "300px" : "40px",
+                maxHeight: isExpanded ? "400px" : "40px",
                 overflow: "hidden",
                 transition: "max-height 0.3s ease"
             }
@@ -1227,15 +1258,87 @@ function DebugPanel() {
             "div",
             {
                 style: {
-                    padding: "8px 12px",
-                    maxHeight: "250px",
+                    padding: "8px",
+                    maxHeight: "350px",
                     overflowY: "auto",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    lineHeight: "1.4"
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "4px"
                 }
             },
-            debugMessages.join('\n')
+            debugMessages.map((entry) => 
+                h(
+                    "div",
+                    {
+                        key: entry.id,
+                        style: {
+                            background: "rgba(255, 255, 255, 0.05)",
+                            border: "1px solid rgba(255, 255, 255, 0.1)",
+                            borderRadius: "4px",
+                            padding: "6px 8px",
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "8px",
+                            fontSize: "10px",
+                            lineHeight: "1.3"
+                        }
+                    },
+                    h(
+                        "div",
+                        {
+                            style: {
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "2px",
+                                minWidth: "80px"
+                            }
+                        },
+                        h(
+                            "span",
+                            {
+                                style: {
+                                    color: getTypeColor(entry.type),
+                                    fontWeight: "bold",
+                                    fontSize: "9px"
+                                }
+                            },
+                            entry.type
+                        ),
+                        h(
+                            "span",
+                            {
+                                style: {
+                                    color: getCategoryColor(entry.category),
+                                    fontSize: "8px",
+                                    textTransform: "uppercase"
+                                }
+                            },
+                            entry.category
+                        ),
+                        h(
+                            "span",
+                            {
+                                style: {
+                                    color: "#9ca3af",
+                                    fontSize: "8px"
+                                }
+                            },
+                            entry.timestamp
+                        )
+                    ),
+                    h(
+                        "div",
+                        {
+                            style: {
+                                flex: 1,
+                                color: "#e5e7eb",
+                                wordBreak: "break-word"
+                            }
+                        },
+                        entry.message
+                    )
+                )
+            )
         )
     );
 }
@@ -1311,10 +1414,26 @@ function filterCurrentWeekMatches(fixtures) {
         const filteredMatches = week.matches.filter(match => {
             if (!match.kickoff) return false;
             const kickoffDate = new Date(match.kickoff);
+            
+            // Hide matches that started more than 20 minutes ago
+            const twentyMinutesAgo = new Date(now.getTime() - 20 * 60 * 1000);
+            if (kickoffDate < twentyMinutesAgo) {
+                debugLog(`Filtering out match ${match.home} vs ${match.away} - started more than 20 minutes ago`, "info", "filtering");
+                return false;
+            }
+            
             // Show matches that are currently being played or haven't started yet
             // Consider a match as "current" if it's within 2.5 hours of kickoff (allowing for match duration + extra time)
             const matchEndTime = new Date(kickoffDate.getTime() + 2.5 * 60 * 60 * 1000);
-            return kickoffDate <= matchEndTime && kickoffDate >= new Date(now.getTime() - 2.5 * 60 * 60 * 1000);
+            const isCurrent = kickoffDate <= matchEndTime && kickoffDate >= new Date(now.getTime() - 2.5 * 60 * 60 * 1000);
+            
+            if (isCurrent) {
+                const timeDiff = Math.round((kickoffDate.getTime() - now.getTime()) / (1000 * 60)); // minutes
+                const status = timeDiff > 0 ? `starts in ${timeDiff} minutes` : `started ${Math.abs(timeDiff)} minutes ago`;
+                debugLog(`Including match ${match.home} vs ${match.away} - ${status}`, "info", "filtering");
+            }
+            
+            return isCurrent;
         });
         return { ...week, matches: filteredMatches };
     }).filter(week => week.matches.length > 0);
