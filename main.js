@@ -87,6 +87,8 @@ const CREST_CANONICAL_IDS = {
     "Newcastle United": 67,
     "Nottingham Forest": 351,
     "Sheffield United": 356,
+    "Spurs": 73,
+    "Sunderland": 71,
     "Southampton": 340,
     "Tottenham Hotspur": 73,
     "West Ham United": 563,
@@ -105,6 +107,8 @@ const CREST_ALIAS_MAP = {
     "Wolverhampton": "Wolverhampton Wanderers",
     "Wolves": "Wolverhampton Wanderers",
     "Spurs": "Tottenham Hotspur",
+    "Sunderland": "Sunderland",
+    "Sunderland AFC": "Sunderland",
     "Tottenham": "Tottenham Hotspur",
     "West Ham": "West Ham United",
     "Leicester": "Leicester City",
@@ -168,12 +172,18 @@ function saveCachedBadges() {
 
 // Download and cache badge
 async function downloadAndCacheBadge(teamName) {
-    const url = crestUrl(teamName);
+    const originalUrl = crestUrl(teamName);
+    const proxyUrl = "https://corsproxy.io/?"; // ✅ CORS bypass proxy
+    const proxiedUrl = proxyUrl + originalUrl;
+
     try {
-        const response = await fetch(url);
+        const response = await fetch(proxiedUrl, {
+            mode: "cors"
+        });
+
         if (response.ok) {
             const blob = await response.blob();
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = () => {
                     const dataUrl = reader.result;
@@ -181,12 +191,16 @@ async function downloadAndCacheBadge(teamName) {
                     saveCachedBadges();
                     resolve(dataUrl);
                 };
+                reader.onerror = reject;
                 reader.readAsDataURL(blob);
             });
+        } else {
+            console.warn(`Failed to fetch badge via proxy: ${response.status}`);
         }
     } catch (e) {
-        console.warn(`Could not download badge for ${teamName}:`, e);
+        console.error(`CORS proxy badge error for ${teamName}:`, e);
     }
+
     return null;
 }
 
@@ -195,9 +209,20 @@ async function getBadge(teamName) {
     if (BADGE_CACHE.has(teamName)) {
         return BADGE_CACHE.get(teamName);
     }
-    
-    const dataUrl = await downloadAndCacheBadge(teamName);
-    return dataUrl || crestUrl(teamName);
+    try {
+        const dataUrl = await downloadAndCacheBadge(teamName);
+        if (dataUrl) {
+          BADGE_CACHE.set(teamName, dataUrl);
+          return dataUrl;
+        }
+        // fallback image or placeholder (embedded)
+        return DEFAULT_CREST_URL;
+      } catch (err) {
+        console.error("Error downloading badge:", err);
+        return DEFAULT_CREST_URL;
+      }
+    // const dataUrl = await downloadAndCacheBadge(teamName);
+    // return dataUrl || crestUrl(teamName);
 }
 
 // Initialize badge cache
@@ -411,9 +436,9 @@ function App() {
                 matchCard.style.alignItems = "center";
                 matchCard.style.justifyContent = "space-between";
                 matchCard.style.gap = "40px";
-                matchCard.style.width = "100%";
+                matchCard.style.width = "110%";
                 matchCard.style.minHeight = "80px";
-                matchCard.style.maxWidth = "1000px";
+                matchCard.style.maxWidth = "none";
                 
                 // Home team (right side)
                 const homeTeam = document.createElement("div");
@@ -429,21 +454,22 @@ function App() {
                 
                 const homeName = document.createElement("span");
                 homeName.textContent = match.home;
-                homeName.style.fontSize = "18px";
+                homeName.style.fontSize = "28px";
                 homeName.style.fontWeight = "600";
                 homeName.style.textAlign = "right";
                 homeName.style.flex = "1";
                 
                 const homeBadge = document.createElement("img");
+                homeBadge.crossOrigin = "anonymous";
                 homeBadge.src = await getBadge(match.home);
-                homeBadge.style.width = "40px";
-                homeBadge.style.height = "40px";
-                homeBadge.style.borderRadius = "50%";
+                homeBadge.style.width = "80px";
+                homeBadge.style.height = "90px";
+                homeBadge.style.borderRadius = "10%";
                 homeBadge.style.objectFit = "contain";
-                homeBadge.style.background = "#ffffff";
-                homeBadge.style.padding = "3px";
+                homeBadge.style.background = "none";
+                homeBadge.style.padding = "1px";
                 homeBadge.style.flexShrink = "0";
-                homeBadge.style.border = "2px solid rgba(148, 163, 184, 0.3)";
+                homeBadge.style.border = "none";
                 
                 homeTeam.appendChild(homeName);
                 homeTeam.appendChild(homeBadge);
@@ -464,8 +490,8 @@ function App() {
                 scoresRow.style.gap = "25px";
                 
                 const homeScore = document.createElement("div");
-                homeScore.style.width = "50px";
-                homeScore.style.height = "50px";
+                homeScore.style.width = "100px";
+                homeScore.style.height = "100px";
                 homeScore.style.background = "linear-gradient(135deg, #2563eb, #7c3aed)";
                 homeScore.style.borderRadius = "50%";
                 homeScore.style.display = "flex";
@@ -473,7 +499,7 @@ function App() {
                 homeScore.style.justifyContent = "center";
                 homeScore.style.fontWeight = "700";
                 homeScore.style.color = "white";
-                homeScore.style.fontSize = "20px";
+                homeScore.style.fontSize = "26px";
                 homeScore.textContent = stored.home || "0";
                 
                 const vsText = document.createElement("span");
@@ -483,8 +509,8 @@ function App() {
                 vsText.style.opacity = "0.8";
                 
                 const awayScore = document.createElement("div");
-                awayScore.style.width = "50px";
-                awayScore.style.height = "50px";
+                awayScore.style.width = "100px";
+                awayScore.style.height = "100px";
                 awayScore.style.background = "linear-gradient(135deg, #2563eb, #7c3aed)";
                 awayScore.style.borderRadius = "50%";
                 awayScore.style.display = "flex";
@@ -492,7 +518,7 @@ function App() {
                 awayScore.style.justifyContent = "center";
                 awayScore.style.fontWeight = "700";
                 awayScore.style.color = "white";
-                awayScore.style.fontSize = "20px";
+                awayScore.style.fontSize = "26px";
                 awayScore.textContent = stored.away || "0";
                 
                 scoresRow.appendChild(homeScore);
@@ -525,19 +551,20 @@ function App() {
                 awayTeam.style.maxWidth = "350px";
                 
                 const awayBadge = document.createElement("img");
+                awayBadge.crossOrigin = "anonymous";
                 awayBadge.src = await getBadge(match.away);
-                awayBadge.style.width = "40px";
-                awayBadge.style.height = "40px";
-                awayBadge.style.borderRadius = "50%";
+                awayBadge.style.width = "80px";
+                awayBadge.style.height = "90px";
+                awayBadge.style.borderRadius = "10%";
                 awayBadge.style.objectFit = "contain";
-                awayBadge.style.background = "#ffffff";
-                awayBadge.style.padding = "3px";
+                awayBadge.style.background = "none";
+                awayBadge.style.padding = "1px";
                 awayBadge.style.flexShrink = "0";
-                awayBadge.style.border = "2px solid rgba(148, 163, 184, 0.3)";
+                awayBadge.style.border = "none";
                 
                 const awayName = document.createElement("span");
                 awayName.textContent = match.away;
-                awayName.style.fontSize = "18px";
+                awayName.style.fontSize = "28px";
                 awayName.style.fontWeight = "600";
                 awayName.style.textAlign = "left";
                 awayName.style.flex = "1";
@@ -560,6 +587,7 @@ function App() {
             // Wait for all images to load
             const images = exportContainer.querySelectorAll('img');
             await Promise.all(Array.from(images).map(img => {
+                img.crossOrigin = "anonymous";
                 return new Promise((resolve) => {
                     if (img.complete) {
                         resolve();
@@ -577,7 +605,7 @@ function App() {
             
             const canvas = await window.html2canvas(exportContainer, {
                 backgroundColor: null,
-                scale: 1,
+                scale: 3,
                 useCORS: true,
                 logging: false,
                 imageTimeout: 15000,
@@ -591,10 +619,27 @@ function App() {
             
             const dataUrl = canvas.toDataURL("image/png", 0.92);
             const fileName = `gw-${activeWeekData.week}-predictions.png`;
-            const link = document.createElement("a");
-            link.download = fileName;
-            link.href = dataUrl;
-            link.click();
+            if (navigator.canShare && navigator.canShare({ files: [] })) {
+                const blob = await (await fetch(dataUrl)).blob();
+                const file = new File([blob], fileName, { type: "image/png" });
+            
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: `GW ${activeWeekData.week} Predictions`,
+                        text: `Check out my predictions for GW ${activeWeekData.week}!`,
+                    });
+                } catch (err) {
+                    console.warn("Share failed:", err);
+                    alert("Sharing was cancelled or failed.");
+                }
+            } else {
+                // fallback to download
+                const link = document.createElement("a");
+                link.download = fileName;
+                link.href = dataUrl;
+                link.click();
+            }
             setExportState({ busy: false, error: null, last: { week: activeWeekData.week, payload, dataUrl } });
         } catch (error) {
             const message = error instanceof Error ? error.message : "Failed to export predictions.";

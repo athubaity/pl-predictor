@@ -323,7 +323,7 @@ header.hero {
 .team-row__crest {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 10%;
     background: rgba(15, 23, 42, 0.6);
     display: inline-flex;
     align-items: center;
