@@ -728,18 +728,18 @@ function App() {
             
             // Add timeout wrapper to prevent hanging
             const html2canvasPromise = window.html2canvas(exportContainer, {
-                backgroundColor: "#fff",
-                scale: isSafari ? 1.5 : 2,
+                backgroundColor: null,
+                scale: isSafari ? 1 : 2,
                 useCORS: true,
                 logging: false,
-                imageTimeout: 10000,
+                imageTimeout: 15000,
                 allowTaint: true,
                 scrollX: 0,
                 scrollY: 0
             });
             
             const timeoutPromise = new Promise((_, reject) => {
-                setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 30000);
+                setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 15000);
             });
             
             const canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
@@ -965,18 +965,7 @@ function App() {
                     debugLog(`General export error: ${error.message}`, "error");
                 }
             }
-            try {
-                debugLog("Try downloading image as a final fallback", "info");
-                const link = document.createElement("a");
-                link.download = fileName;
-                link.href = dataUrl;
-                link.click();
-                debugLog("Downloaded image as final fallback", "success");
-                shareSuccessful = true; // Mark as successful since download worked
-            } catch (downloadErr) {
-                debugLog(`Download fallback also failed: ${downloadErr.message}`, "error");
-                shareSuccessful = false;
-            }
+            
             setExportState({ busy: false, error: message, last: null });
         }
     }, [activeWeekData, predictions, exportState.busy, exportState.last]);
