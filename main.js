@@ -558,7 +558,9 @@ function App() {
                 homeName.style.fontWeight = "600";
                 homeName.style.textAlign = "right";
                 homeName.style.flex = "1";
+                homeTeam.appendChild(homeName);
                 
+                if (!isSafari) {
                 const homeBadge = document.createElement("img");
                 homeBadge.crossOrigin = "anonymous";
                 homeBadge.src = await getBadge(match.home);
@@ -570,9 +572,8 @@ function App() {
                 homeBadge.style.padding = "1px";
                 homeBadge.style.flexShrink = "0";
                 homeBadge.style.border = "none";
-                
-                homeTeam.appendChild(homeName);
-                if (!isSafari) homeTeam.appendChild(homeBadge);
+                homeTeam.appendChild(homeBadge);
+                }
                 
                 // Center section with scores and match info
                 const centerSection = document.createElement("div");
@@ -650,6 +651,7 @@ function App() {
                 awayTeam.style.minWidth = "300px";
                 awayTeam.style.maxWidth = "350px";
                 
+                if (!isSafari) {
                 const awayBadge = document.createElement("img");
                 awayBadge.crossOrigin = "anonymous";
                 awayBadge.src = await getBadge(match.away);
@@ -661,15 +663,15 @@ function App() {
                 awayBadge.style.padding = "1px";
                 awayBadge.style.flexShrink = "0";
                 awayBadge.style.border = "none";
-                
+                awayTeam.appendChild(awayBadge);
+                }
+
                 const awayName = document.createElement("span");
                 awayName.textContent = match.away;
                 awayName.style.fontSize = "28px";
                 awayName.style.fontWeight = "600";
                 awayName.style.textAlign = "left";
                 awayName.style.flex = "1";
-                
-                if (!isSafari) awayTeam.appendChild(awayBadge);
                 awayTeam.appendChild(awayName);
                 
                 matchCard.appendChild(homeTeam);
