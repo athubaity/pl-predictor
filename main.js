@@ -773,7 +773,12 @@ function App() {
                             const imageURL = URL.createObjectURL(blob);
                     
                             debugLog("Opening image in new tab for manual share", "info", "sharing");
-                            window.open(imageURL, "_blank");
+                            const link = document.createElement("a");
+                            link.download = fileName;
+                            link.href = imageURL;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
                             shareSuccessful = true;
                         } catch (iosErr) {
                             debugLog(`iOS open image failed: ${iosErr.message}`, "error");
