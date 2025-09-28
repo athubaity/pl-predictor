@@ -706,7 +706,26 @@ function App() {
             await new Promise(resolve => setTimeout(resolve, 500));
             debugLog("Rendering delay completed", "success", "export");
             
-            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            // --- iOS/Safari-friendly conversion ---
+            const ua = navigator.userAgent;
+            // iOS covers iPhone/iPad; Safari excludes Chrome/Firefox on iOS
+            const isIOS = /iP(ad|hone|od)/.test(ua);
+            const isSafari = /Safari/i.test(ua) && !/Chrome|CriOS|FxiOS/i.test(ua);
+            debugLog(`Device detection - iOS: ${isIOS}, Browser is safari: ${isSafari}`, "info", "device");
+            // Reduce memory pressure for Safari/iOS
+            if (isIOS || isSafari) {
+            // Solid background renders faster and avoids some compositor paths
+            exportContainer.style.background = "#ffffff";
+            // Trim expensive effects
+            exportContainer.querySelectorAll("*").forEach(el => {
+                el.style.boxShadow = "none";
+                el.style.backdropFilter = "none";
+                el.style.filter = "none";
+                // (Optional) el.style.transform = "none";
+            });
+            // Slightly narrower surface than your default 1200px to reduce pixels
+            exportContainer.style.width = "1000px";
+            }
             debugLog("Starting html2canvas conversion", "info", "export");
             
             // Add timeout wrapper to prevent hanging
@@ -745,10 +764,7 @@ function App() {
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
                             (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
             
-            // Detect iOS specifically
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            
-            debugLog(`Device detection - Mobile: ${isMobile}, iOS: ${isIOS}`, "info", "device");
+            debugLog(`Device detection - Mobile: ${isMobile}`, "info", "device");
             debugLog(`User Agent: ${navigator.userAgent}`, "info", "device");
             
             // Check if Web Share API is supported
