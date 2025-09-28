@@ -721,15 +721,13 @@ function App() {
             await new Promise(resolve => setTimeout(resolve, 500));
             debugLog("Rendering delay completed", "success", "export");
             
-            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-            debugLog(`User Agent: ${navigator.userAgent} isSafari: ${isSafari}`, "info", "device");
-
+            
             debugLog("Starting html2canvas conversion", "info", "export");
             
             // Add timeout wrapper to prevent hanging
-            const html2canvasPromise = window.html2canvas(exportContainer, {
+            const canvas = window.html2canvas(exportContainer, {
                 backgroundColor: null,
-                scale: isSafari ? 1 : 2,
+                scale: 2,
                 useCORS: true,
                 logging: false,
                 imageTimeout: 15000,
@@ -738,11 +736,11 @@ function App() {
                 scrollY: 0
             });
             
-            const timeoutPromise = new Promise((_, reject) => {
-                setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 15000);
-            });
+            // const timeoutPromise = new Promise((_, reject) => {
+            //     setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 15000);
+            // });
             
-            const canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
+            // const canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
             debugLog("html2canvas conversion completed", "success", "export");
             
             debugLog("Cleaning up export container", "info", "export");
@@ -764,6 +762,7 @@ function App() {
             
             // Detect iOS specifically
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
             
             debugLog(`Device detection - Mobile: ${isMobile}, iOS: ${isIOS}`, "info", "device");
             debugLog(`User Agent: ${navigator.userAgent}`, "info", "device");
