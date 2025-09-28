@@ -725,7 +725,7 @@ function App() {
             debugLog("Starting html2canvas conversion", "info", "export");
             
             // Add timeout wrapper to prevent hanging
-            const canvas = window.html2canvas(exportContainer, {
+            const html2canvasPromise = window.html2canvas(exportContainer, {
                 backgroundColor: null,
                 scale: 2,
                 useCORS: true,
@@ -736,11 +736,11 @@ function App() {
                 scrollY: 0
             });
             
-            // const timeoutPromise = new Promise((_, reject) => {
-            //     setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 15000);
-            // });
+            const timeoutPromise = new Promise((_, reject) => {
+                setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 10000);
+            });
             
-            // const canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
+            const canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
             debugLog("html2canvas conversion completed", "success", "export");
             
             debugLog("Cleaning up export container", "info", "export");
