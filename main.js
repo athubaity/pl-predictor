@@ -1,7 +1,6 @@
 ﻿import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import QRCodeLib from "qrcode";
-import domtoimage from "dom-to-image-more";
 const h = React.createElement;
 
 // QRCode component using qrcode library
@@ -31,12 +30,14 @@ function QRCode({ value, bgColor = "#ffffff", fgColor = "#000000", level = "M", 
     });
 }
 
-const VERSION = "13";
+const VERSION = "14";
 const STORAGE_KEY = `pl-predictor-v${VERSION}`;
 const THEME_STORAGE_KEY = "pl-predictor-theme";
 const DEFAULT_THEME = "dark";
 const TIME_ZONE = "Asia/Riyadh";
 const DEFAULT_CREST_URL = "https://crests.football-data.org/PL.svg";
+// Tiny 1x1 PNG fallback to keep canvas origin-clean on iOS
+const DEFAULT_CREST_DATAURL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=";
 
 // Debug logger for mobile debugging with caching
 const DEBUG_STORAGE_KEY = `pl-predictor-debug-v${VERSION}`;
@@ -260,57 +261,41 @@ function saveCachedBadges() {
 // Download and cache badge
 async function downloadAndCacheBadge(teamName) {
     const originalUrl = crestUrl(teamName);
-    const proxyUrl = "https://corsproxy.io/?"; // ✅ CORS bypass proxy
+    const proxyUrl = "https://corsproxy.io/?";
     const proxiedUrl = proxyUrl + originalUrl;
 
     try {
-        const response = await fetch(proxiedUrl, {
-            mode: "cors"
+      const response = await fetch(proxiedUrl, { mode: "cors" });
+      if (response.ok) {
+        const blob = await response.blob();
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const dataUrl = reader.result;
+            BADGE_CACHE.set(teamName, dataUrl);
+            saveCachedBadges();
+            resolve(dataUrl);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
         });
-
-        if (response.ok) {
-            const blob = await response.blob();
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const dataUrl = reader.result;
-                    BADGE_CACHE.set(teamName, dataUrl);
-                    saveCachedBadges();
-                    resolve(dataUrl);
-                };
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            });
-        } else {
-            console.warn(`Failed to fetch badge via proxy: ${response.status}`);
-        }
+      } else {
+        console.warn(`Proxy fetch failed ${response.status} for ${teamName}`);
+      }
     } catch (e) {
-        console.error(`CORS proxy badge error for ${teamName}:`, e);
+      console.error(`CORS proxy badge error for ${teamName}:`, e);
     }
-
-    return null;
-}
+    return DEFAULT_CREST_DATAURL;
+  }
 
 // Get badge (cached or download)
 async function getBadge(teamName) {
     if (BADGE_CACHE.has(teamName)) {
-        return BADGE_CACHE.get(teamName);
+      return BADGE_CACHE.get(teamName);
     }
-    try {
-        const dataUrl = await downloadAndCacheBadge(teamName);
-        if (dataUrl) {
-          BADGE_CACHE.set(teamName, dataUrl);
-          return dataUrl;
-        }
-        // fallback image or placeholder (embedded)
-        return DEFAULT_CREST_URL;
-      } catch (err) {
-        console.error("Error downloading badge:", err);
-        return DEFAULT_CREST_URL;
-      }
-    // const dataUrl = await downloadAndCacheBadge(teamName);
-    // return dataUrl || crestUrl(teamName);
-}
+    const dataUrl = await downloadAndCacheBadge(teamName);
+    return dataUrl || DEFAULT_CREST_DATAURL;
+  }
 
 // Initialize badge cache
 loadCachedBadges();
@@ -740,17 +725,7 @@ function App() {
                 setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 10000);
             });
             
-            let canvas;
-            if (isSafari) {
-                const blob = await domtoimage.toBlob(exportContainer, {
-                    bgcolor: "#fff",
-                    quality: 1,
-                    style: { transform: "scale(1)" }
-                });
-                canvas = await createImageBitmap(blob); // mimic html2canvas output
-            } else {
-                canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
-            }
+            const canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
             debugLog("html2canvas conversion completed", "success", "export");
             
             debugLog("Cleaning up export container", "info", "export");
