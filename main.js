@@ -463,7 +463,7 @@ function App() {
             debugLog("Generating QR code data", "info", "export");
             const qrData = JSON.stringify(payload, null, 0);
             console.log("QR Data:", qrData); // Debug log
-            debugLog(`QR data generated ${qrData}`, "success", "export");
+            debugLog(`QR data generated`, "success", "export");
             
             debugLog("Generating QR code image", "info", "export");
             await QRCodeLib.toCanvas(qrCanvas, qrData, {
@@ -766,24 +766,19 @@ function App() {
                 try {
                     // For iPhone Safari, try a simpler approach first
                     if (isIOS) {
-                        // For iOS, try text sharing first (more reliable)
-                        debugLog("iOS detected, trying text sharing first", "info", "sharing");
-                        
-                        const sharePromise = navigator.share({
-                            title: `GW ${activeWeekData.week} Predictions`,
-                            text: `Check out my predictions for GW ${activeWeekData.week}!`,
-                            url: window.location.href
-                        });
-                        
-                        const timeoutPromise = new Promise((_, reject) => {
-                            setTimeout(() => reject(new Error("Share operation timed out")), 8000);
-                        });
-                        
-                        debugLog("Starting iOS text sharing with 8s timeout", "info", "sharing");
-                        await Promise.race([sharePromise, timeoutPromise]);
-                        shareSuccessful = true;
-                        debugLog("Share successful with text/URL on iOS", "success", "sharing");
-                        
+                        debugLog("iOS detected, skipping navigator.share to avoid URL-only share", "info", "sharing");
+                        try {
+                            const response = await fetch(dataUrl);
+                            const blob = await response.blob();
+                            const imageURL = URL.createObjectURL(blob);
+                    
+                            debugLog("Opening image in new tab for manual share", "info", "sharing");
+                            window.open(imageURL, "_blank");
+                            shareSuccessful = true;
+                        } catch (iosErr) {
+                            debugLog(`iOS open image failed: ${iosErr.message}`, "error");
+                            shareSuccessful = false;
+                        }
                     } else {
                         // For Android, try file sharing first
                         debugLog("Android detected, checking file sharing support", "info");
