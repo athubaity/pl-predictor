@@ -402,6 +402,9 @@ function App() {
             debugLog("Export already in progress - cancelled", "warning", "export");
             return;
         }
+        const ua = navigator.userAgent;
+        const isIOS = /iP(ad|hone|od)/.test(ua);
+        const isSafari = /Safari/i.test(ua) && !/Chrome|CriOS|FxiOS/i.test(ua);
         
         debugLog("Setting export state to busy", "info", "export");
         setExportState({ busy: true, error: null, last: exportState.last });
@@ -569,7 +572,7 @@ function App() {
                 homeBadge.style.border = "none";
                 
                 homeTeam.appendChild(homeName);
-                homeTeam.appendChild(homeBadge);
+                if (!isSafari) homeTeam.appendChild(homeBadge);
                 
                 // Center section with scores and match info
                 const centerSection = document.createElement("div");
@@ -666,7 +669,7 @@ function App() {
                 awayName.style.textAlign = "left";
                 awayName.style.flex = "1";
                 
-                awayTeam.appendChild(awayBadge);
+                if (!isSafari) awayTeam.appendChild(awayBadge);
                 awayTeam.appendChild(awayName);
                 
                 matchCard.appendChild(homeTeam);
@@ -706,32 +709,14 @@ function App() {
             await new Promise(resolve => setTimeout(resolve, 500));
             debugLog("Rendering delay completed", "success", "export");
             
-            // --- iOS/Safari-friendly conversion ---
-            const ua = navigator.userAgent;
-            // iOS covers iPhone/iPad; Safari excludes Chrome/Firefox on iOS
-            const isIOS = /iP(ad|hone|od)/.test(ua);
-            const isSafari = /Safari/i.test(ua) && !/Chrome|CriOS|FxiOS/i.test(ua);
             debugLog(`Device detection - iOS: ${isIOS}, Browser is safari: ${isSafari}`, "info", "device");
-            // Reduce memory pressure for Safari/iOS
-            if (isIOS || isSafari) {
-            // Solid background renders faster and avoids some compositor paths
-            exportContainer.style.background = "#ffffff";
-            // Trim expensive effects
-            exportContainer.querySelectorAll("*").forEach(el => {
-                el.style.boxShadow = "none";
-                el.style.backdropFilter = "none";
-                el.style.filter = "none";
-                // (Optional) el.style.transform = "none";
-            });
-            // Slightly narrower surface than your default 1200px to reduce pixels
-            exportContainer.style.width = "1000px";
-            }
+
             debugLog("Starting html2canvas conversion", "info", "export");
             
             // Add timeout wrapper to prevent hanging
             const html2canvasPromise = window.html2canvas(exportContainer, {
                 backgroundColor: null,
-                scale: isSafari? 0.5 : 2,
+                scale: 2,
                 useCORS: true,
                 logging: false,
                 imageTimeout: 15000,
