@@ -449,18 +449,21 @@ function App() {
             qrSection.style.gap = "25px";
             qrSection.style.width = "100%";
             
+
             debugLog("Creating QR code canvas", "info", "export");
             // Create QR code
+            const QR_PX = 300;
             const qrCanvas = document.createElement("canvas");
-            qrCanvas.width = 240;
-            qrCanvas.height = 240;
+            qrCanvas.width = QR_PX;
+            qrCanvas.height = QR_PX;
+            qrCanvas.style.imageRendering = "pixelated";
             debugLog("QR canvas created", "success", "export");
             
             // Ensure QR code is properly generated
             debugLog("Generating QR code data", "info", "export");
             const qrData = JSON.stringify(payload, null, 0);
             console.log("QR Data:", qrData); // Debug log
-            debugLog("QR data generated", "success", "export");
+            debugLog(`QR data generated ${qrData}`, "success", "export");
             
             debugLog("Generating QR code image", "info", "export");
             await QRCodeLib.toCanvas(qrCanvas, qrData, {
@@ -468,10 +471,10 @@ function App() {
                     dark: "#000000",
                     light: "#ffffff"
                 },
-                errorCorrectionLevel: "M",
+                errorCorrectionLevel: "H",
                 margin: 4,
-                width: 240,
-                height: 240
+                width: QR_PX,
+                height: QR_PX
             });
             debugLog("QR code generated successfully", "success", "export");
             
@@ -479,7 +482,7 @@ function App() {
             // QR code container
             const qrContainer = document.createElement("div");
             qrContainer.style.background = "#ffffff";
-            qrContainer.style.padding = "25px";
+            qrContainer.style.padding = "20px";
             qrContainer.style.borderRadius = "25px";
             qrContainer.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.4)";
             qrContainer.style.display = "flex";
@@ -559,8 +562,7 @@ function App() {
                 homeName.style.textAlign = "right";
                 homeName.style.flex = "1";
                 homeTeam.appendChild(homeName);
-                
-                if (!isSafari) {
+
                 const homeBadge = document.createElement("img");
                 homeBadge.crossOrigin = "anonymous";
                 homeBadge.src = await getBadge(match.home);
@@ -573,7 +575,6 @@ function App() {
                 homeBadge.style.flexShrink = "0";
                 homeBadge.style.border = "none";
                 homeTeam.appendChild(homeBadge);
-                }
                 
                 // Center section with scores and match info
                 const centerSection = document.createElement("div");
@@ -651,7 +652,6 @@ function App() {
                 awayTeam.style.minWidth = "300px";
                 awayTeam.style.maxWidth = "350px";
                 
-                if (!isSafari) {
                 const awayBadge = document.createElement("img");
                 awayBadge.crossOrigin = "anonymous";
                 awayBadge.src = await getBadge(match.away);
@@ -664,7 +664,6 @@ function App() {
                 awayBadge.style.flexShrink = "0";
                 awayBadge.style.border = "none";
                 awayTeam.appendChild(awayBadge);
-                }
 
                 const awayName = document.createElement("span");
                 awayName.textContent = match.away;
@@ -711,7 +710,13 @@ function App() {
             await new Promise(resolve => setTimeout(resolve, 500));
             debugLog("Rendering delay completed", "success", "export");
             
-            debugLog(`Device detection - iOS: ${isIOS}, Browser is safari: ${isSafari}`, "info", "device");
+            let dataUrl;
+            if (isIOS || isSafari) {
+                debugLog(`Device detection - iOS: ${isIOS}, Browser is safari: ${isSafari}`, "info", "device");
+                debugLog("render directly to canvas for IOS Safari", "info", "export");
+                dataUrl = await renderExportWithCanvasStyled(activeWeekData, predictions, payload);
+                debugLog("Canvas export (iOS/Safari) completed", "success", "export");
+            } else {
 
             debugLog("Starting html2canvas conversion", "info", "export");
             
@@ -740,7 +745,8 @@ function App() {
             debugLog("Export container removed from DOM", "success", "export");
             
             debugLog("Converting canvas to data URL", "info", "export");
-            const dataUrl = canvas.toDataURL("image/png", 0.92);
+            dataUrl = canvas.toDataURL("image/png", 0.92);
+            }
             const fileName = `gw-${activeWeekData.week}-predictions.png`;
             debugLog("Canvas converted to data URL", "success", "export");
 
@@ -1698,6 +1704,305 @@ function buildExportPayload(weekData, predictions) {
         predictions: predictionsObj
     };
 }
+
+  /**
+   * Render the export image directly to a <canvas> (Safari/iOS path).
+   * Mirrors your current design: gradient background, large round score bubbles, big badges.
+   * Uses only data URLs for badges; if a badge can't be inlined, it’s skipped (no hang).
+   */
+  async function renderExportWithCanvasStyled(weekData, predictions, payload) {
+    // ===== Overall layout =====
+    const WIDTH = 1200;
+    const PAD = 60;                  // outer padding
+    const CARD_R = 20;
+    const CARD_PAD = 25;             // inner padding inside card
+  
+    // Header (QR → Date → GW)
+    const QR = 300;
+    const DATE_LINE_H = 28;
+    const GW_LINE_H = 22;
+    const HEADER_GAP_BELOW = 30;     // gap after GW before first match card
+    const GAP_QR_DATE = 48;
+    const GAP_DATE_GW = 24;
+  
+    // Match row metrics (taller, like html2canvas)
+    const CARD_W = WIDTH - PAD * 2;
+    const CARD_H = 180;
+    const CARD_GAP = 20;
+  
+    // Horizontal order: [home name][home badge][home score][away score][away badge][away name]
+    const BADGE = 80;
+    const SCORE_D = 100;
+    const GAP_NAME_BADGE = 24;
+    const GAP_BADGE_SCORE = 100;
+    const GAP_SCORES = 200;          // distance between score bubble centers
+  
+    // Scores vertical offset (scores NOT centered like names/badges)
+    const SCORES_Y_OFFSET = -22;
+  
+    // "vs"
+    const VS_FONT = "500 14px Poppins, system-ui, sans-serif";
+    const VS_COLOR = "rgba(248,250,252,0.85)";
+    const VS_BASELINE_OFFSET = 6;
+  
+    // Team name font + wrapping
+    const NAME_FONT = "600 28px Poppins, system-ui, sans-serif";
+    const NAME_LINE_GAP = 4; // gap between wrapped lines
+  
+    // ===== Canvas =====
+    const c = document.createElement("canvas");
+    // Compute total height
+    const HEADER_H = (QR + 32) + GAP_QR_DATE + DATE_LINE_H + GAP_DATE_GW + GW_LINE_H + HEADER_GAP_BELOW;
+    const MATCHES_H = weekData.matches.length * (CARD_H + CARD_GAP);
+    const HEIGHT = PAD + HEADER_H + MATCHES_H + PAD;
+  
+    c.width = WIDTH;
+    c.height = HEIGHT;
+    const ctx = c.getContext("2d");
+    ctx.imageSmoothingEnabled = true;
+  
+    // Background gradient (same palette)
+    const bg = ctx.createLinearGradient(0, 0, WIDTH, HEIGHT);
+    bg.addColorStop(0.00, "#020617");
+    bg.addColorStop(0.40, "#0f172a");
+    bg.addColorStop(1.00, "#020617");
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+  
+    // --- QR (centered) ---
+    const qrX = (WIDTH - QR) / 2;
+    const qrY = PAD + 16; // slight top padding inside header
+  
+    // white rounded card behind QR
+    (function rr(x, y, w, h, r) {
+      r = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+    })(qrX - 16, qrY - 16, QR + 32, QR + 32, 24);
+  
+    const qrCanvas = document.createElement("canvas");
+    qrCanvas.width = QR; qrCanvas.height = QR;
+    await QRCodeLib.toCanvas(qrCanvas, JSON.stringify(payload), {
+      color: { dark: "#000000", light: "#ffffff" },
+      errorCorrectionLevel: "H", margin: 4, width: QR, height: QR
+    });
+    ctx.drawImage(qrCanvas, qrX, qrY);
+  
+    // Date (bold) under QR, then GW under it
+    const now = new Date();
+    const saudiTime = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Riyadh",
+      day: "numeric", month: "short", year: "numeric",
+      hour: "2-digit", minute: "2-digit", hour12: false
+    }).format(now);
+  
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#f8fafc";
+    ctx.font = "600 22px Poppins, system-ui, sans-serif";
+    const dateLineY = qrY + QR + GAP_QR_DATE + DATE_LINE_H;
+    ctx.fillText(saudiTime, WIDTH / 2, dateLineY);
+  
+    ctx.font = "500 18px Poppins, system-ui, sans-serif";
+    const gwLineY = dateLineY + GAP_DATE_GW + GW_LINE_H;
+    ctx.fillText(`GW ${weekData.week}`, WIDTH / 2, gwLineY);
+  
+    // Helper: load crest strictly as data URL (origin-clean)
+    async function loadImageFromDataURL(dataUrl) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = dataUrl;
+      });
+    }
+    async function loadBadgeSafe(teamName) {
+      try {
+        if (BADGE_CACHE.has(teamName)) {
+          const url = BADGE_CACHE.get(teamName);
+          if (typeof url === "string" && url.startsWith("data:"))
+            return await loadImageFromDataURL(url);
+        }
+        const dataUrl = await downloadAndCacheBadge(teamName);
+        if (typeof dataUrl === "string" && urlStartsWithData(dataUrl))
+          return await loadImageFromDataURL(dataUrl);
+      } catch {}
+      return null; // skip if not data URL
+    }
+    function urlStartsWithData(u) { return typeof u === "string" && u.startsWith("data:"); }
+  
+    // Helpers: name wrapping (last word to second line) + vertical centering
+    function measureLineHeight(ctx) {
+      const m = ctx.measureText("Mg");
+      const ascent = m.actualBoundingBoxAscent ?? 22;
+      const descent = m.actualBoundingBoxDescent ?? 6;
+      return ascent + descent;
+    }
+    function drawTeamNameBlock(ctx, text, centerY, maxWidth, alignment, anchorX) {
+      ctx.font = NAME_FONT;
+      ctx.textAlign = alignment;
+      ctx.fillStyle = "#f8fafc";
+  
+      const fullWidth = ctx.measureText(text).width;
+      let lines;
+      if (fullWidth <= maxWidth) {
+        lines = [text];
+      } else {
+        const parts = String(text).trim().split(/\s+/);
+        if (parts.length === 1) {
+          lines = [text];
+        } else {
+          let last = parts.pop();
+          let first = parts.join(" ");
+          lines = [first, last];
+          // If first line still too wide, move words from first → last
+          while (ctx.measureText(lines[0]).width > maxWidth && lines[0].includes(" ")) {
+            const a = lines[0].split(/\s+/);
+            const moved = a.pop();
+            lines[0] = a.join(" ");
+            lines[1] = moved + " " + lines[1];
+          }
+        }
+      }
+  
+      const lh = measureLineHeight(ctx);
+      const totalH = lines.length * lh + (lines.length - 1) * NAME_LINE_GAP;
+      // baseline for first line so block is vertically centered
+      let baseline = centerY - totalH / 2 + lh * 0.8;
+  
+      for (let i = 0; i < lines.length; i++) {
+        if (!lines[i]) continue;
+        ctx.fillText(lines[i], anchorX, baseline);
+        baseline += lh + NAME_LINE_GAP;
+      }
+    }
+  
+    // --- Matches ---
+    let y = PAD + HEADER_H; // start below header block
+  
+    for (const [index, match] of weekData.matches.entries()) {
+      const matchId = buildMatchId(weekData.week, match, index);
+      const entry = predictions[matchId] ?? { home: "", away: "" };
+      const homeScore = entry.home || "0";
+      const awayScore = entry.away || "0";
+  
+      // Card background + border
+      ctx.save();
+      (function rr(x, y, w, h, r) {
+        r = Math.min(r, w / 2, h / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+        ctx.clip();
+      })(PAD, y, CARD_W, CARD_H, CARD_R);
+      ctx.fillStyle = "rgba(15,23,42,0.80)";
+      ctx.fillRect(PAD, y, CARD_W, CARD_H);
+      ctx.restore();
+  
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.2)";
+      ctx.lineWidth = 1;
+      (function rr(x, y, w, h, r) {
+        r = Math.min(r, w / 2, h / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+        ctx.stroke();
+      })(PAD, y, CARD_W, CARD_H, CARD_R);
+  
+      // Inner content area + centers
+      const innerLeft = PAD + CARD_PAD;
+      const innerRight = PAD + CARD_W - CARD_PAD;
+      const centerX = (innerLeft + innerRight) / 2;
+      const centerY = y + CARD_H / 2;               // vertical center for row
+      const bubblesY = centerY + SCORES_Y_OFFSET;   // scores NOT centered like names/badges
+      const infoLine1Y = y + CARD_H - 42;           // bold kickoff date
+      const infoLine2Y = y + CARD_H - 18;           // venue
+  
+      // Score bubble centers (fixed around centerX)
+      const leftBubbleX  = centerX - (GAP_SCORES / 2);
+      const rightBubbleX = centerX + (GAP_SCORES / 2);
+  
+      // Home badge left of left bubble; Away badge right of right bubble (Y-centered)
+      const homeBadgeX = leftBubbleX - GAP_BADGE_SCORE - BADGE;
+      const homeBadgeY = centerY - BADGE / 2;
+      const awayBadgeX = rightBubbleX + GAP_BADGE_SCORE;
+      const awayBadgeY = centerY - BADGE / 2;
+  
+      // HOME name (to the LEFT of home badge), right-aligned & vertically centered
+      const homeNameRight = homeBadgeX - GAP_NAME_BADGE;
+      const homeNameMaxW  = homeNameRight - innerLeft;
+      drawTeamNameBlock(ctx, match.home, centerY, homeNameMaxW, "right", homeNameRight);
+  
+      // Draw HOME badge
+      const homeBadgeImg = await loadBadgeSafe(match.home);
+      if (homeBadgeImg) ctx.drawImage(homeBadgeImg, homeBadgeX, homeBadgeY, BADGE, BADGE);
+  
+      // AWAY name (to the RIGHT of away badge), left-aligned & vertically centered
+      const awayNameLeft = awayBadgeX + BADGE + GAP_NAME_BADGE;
+      const awayNameMaxW = innerRight - awayNameLeft;
+      drawTeamNameBlock(ctx, match.away, centerY, awayNameMaxW, "left", awayNameLeft);
+  
+      // Draw AWAY badge
+      const awayBadgeImg = await loadBadgeSafe(match.away);
+      if (awayBadgeImg) ctx.drawImage(awayBadgeImg, awayBadgeY ? awayBadgeX : awayBadgeX, awayBadgeY, BADGE, BADGE);
+  
+      // Score bubbles (gradient like DOM)
+      const bubbleGrad = ctx.createLinearGradient(0, bubblesY - SCORE_D, 0, bubblesY + SCORE_D);
+      bubbleGrad.addColorStop(0, "#2563eb");
+      bubbleGrad.addColorStop(1, "#7c3aed");
+  
+      ctx.fillStyle = bubbleGrad;
+      ctx.beginPath(); ctx.arc(leftBubbleX,  bubblesY, SCORE_D / 2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(rightBubbleX, bubblesY, SCORE_D / 2, 0, Math.PI * 2); ctx.fill();
+  
+      // "vs" between bubbles (before scores)
+      {
+        const vsX = (leftBubbleX + rightBubbleX) / 2;
+        const vsY = bubblesY + VS_BASELINE_OFFSET;
+        ctx.save();
+        ctx.fillStyle = VS_COLOR;
+        ctx.font = VS_FONT;
+        ctx.textAlign = "center";
+        ctx.fillText("vs", vsX, vsY);
+        ctx.restore();
+      }
+  
+      // Scores
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.font = "700 40px Poppins, system-ui, sans-serif";
+      ctx.fillText(String(homeScore), leftBubbleX,  bubblesY + 14);
+      ctx.fillText(String(awayScore), rightBubbleX, bubblesY + 14);
+  
+      // Under-score info (bold date, then venue)
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#e2e8f0";
+      ctx.font = "600 16px Poppins, system-ui, sans-serif";
+      ctx.fillText(`${formatKickoff(match.kickoff)}`, centerX, infoLine1Y);
+  
+      ctx.fillStyle = "rgba(226,232,240,0.85)";
+      ctx.font = "400 14px Poppins, system-ui, sans-serif";
+      ctx.fillText(`${match.venue}`, centerX, infoLine2Y);
+  
+      y += CARD_H + CARD_GAP;
+    }
+  
+    return c.toDataURL("image/png", 0.92);
+  }
 
 function buildCrestLookup(canonical, aliases) {
     const lookup = new Map();
