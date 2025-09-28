@@ -31,7 +31,7 @@ function QRCode({ value, bgColor = "#ffffff", fgColor = "#000000", level = "M", 
     });
 }
 
-const VERSION = "11";
+const VERSION = "12";
 const STORAGE_KEY = `pl-predictor-v${VERSION}`;
 const THEME_STORAGE_KEY = "pl-predictor-theme";
 const DEFAULT_THEME = "dark";
@@ -721,15 +721,18 @@ function App() {
             await new Promise(resolve => setTimeout(resolve, 500));
             debugLog("Rendering delay completed", "success", "export");
             
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            debugLog(`User Agent: ${navigator.userAgent} isSafari: ${isSafari}`, "info", "device");
+
             debugLog("Starting html2canvas conversion", "info", "export");
             
             // Add timeout wrapper to prevent hanging
             const html2canvasPromise = window.html2canvas(exportContainer, {
-                backgroundColor: null,
-                scale: 2,
+                backgroundColor: "#fff",
+                scale: isSafari ? 1.5 : 2,
                 useCORS: true,
                 logging: false,
-                imageTimeout: 15000,
+                imageTimeout: 10000,
                 allowTaint: true,
                 scrollX: 0,
                 scrollY: 0
@@ -949,7 +952,7 @@ function App() {
         } catch (error) {
             debugLog(`Export failed with error: ${error.message}`, "error");
             let message = "Failed to export predictions.";
-            
+
             if (error instanceof Error) {
                 if (error.message.includes("timed out")) {
                     message = "Export timed out. Please try again.";
@@ -962,7 +965,18 @@ function App() {
                     debugLog(`General export error: ${error.message}`, "error");
                 }
             }
-            
+            try {
+                debugLog("Try downloading image as a final fallback", "info");
+                const link = document.createElement("a");
+                link.download = fileName;
+                link.href = dataUrl;
+                link.click();
+                debugLog("Downloaded image as final fallback", "success");
+                shareSuccessful = true; // Mark as successful since download worked
+            } catch (downloadErr) {
+                debugLog(`Download fallback also failed: ${downloadErr.message}`, "error");
+                shareSuccessful = false;
+            }
             setExportState({ busy: false, error: message, last: null });
         }
     }, [activeWeekData, predictions, exportState.busy, exportState.last]);
@@ -1680,20 +1694,33 @@ function applyTheme(theme) {
 }
 
 function buildExportPayload(weekData, predictions) {
+    const exported_time = Math.floor(Date.now() / 1000); // epoch seconds
+
+    const predictionsObj = {};
+    weekData.matches.forEach((match, index) => {
+        const matchId = buildMatchId(weekData.week, match, index);
+        const entry = predictions[matchId] ?? { home: "", away: "" };
+
+        // Crest IDs
+        const homeCrestId = CREST_LOOKUP.get(normaliseClubKey(match.home));
+        const awayCrestId = CREST_LOOKUP.get(normaliseClubKey(match.away));
+
+        predictionsObj[index + 1] = {
+            [homeCrestId]: {
+                name: match.home,
+                score_predicted: entry.home || ""
+            },
+            [awayCrestId]: {
+                name: match.away,
+                score_predicted: entry.away || ""
+            }
+        };
+    });
+
     return {
-        week: weekData.week,
-        generatedAt: new Date().toISOString(),
-        matches: weekData.matches.map((match, index) => {
-            const matchId = buildMatchId(weekData.week, match, index);
-            const entry = predictions[matchId] ?? { home: "", away: "" };
-            return {
-                home: match.home,
-                away: match.away,
-                kickoff: match.kickoff,
-                venue: match.venue,
-                score: entry
-            };
-        })
+        exported_time,
+        game_week: weekData.week,
+        predictions: predictionsObj
     };
 }
 
