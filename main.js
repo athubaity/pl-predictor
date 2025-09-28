@@ -731,7 +731,7 @@ function App() {
             // Add timeout wrapper to prevent hanging
             const html2canvasPromise = window.html2canvas(exportContainer, {
                 backgroundColor: null,
-                scale: 2,
+                scale: isSafari? 0.5 : 2,
                 useCORS: true,
                 logging: false,
                 imageTimeout: 15000,
