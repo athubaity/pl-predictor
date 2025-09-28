@@ -1,7 +1,7 @@
 ﻿import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import QRCodeLib from "qrcode";
-
+import domtoimage from "dom-to-image-more";
 const h = React.createElement;
 
 // QRCode component using qrcode library
@@ -31,7 +31,7 @@ function QRCode({ value, bgColor = "#ffffff", fgColor = "#000000", level = "M", 
     });
 }
 
-const VERSION = "12";
+const VERSION = "13";
 const STORAGE_KEY = `pl-predictor-v${VERSION}`;
 const THEME_STORAGE_KEY = "pl-predictor-theme";
 const DEFAULT_THEME = "dark";
@@ -721,7 +721,7 @@ function App() {
             await new Promise(resolve => setTimeout(resolve, 500));
             debugLog("Rendering delay completed", "success", "export");
             
-            
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
             debugLog("Starting html2canvas conversion", "info", "export");
             
             // Add timeout wrapper to prevent hanging
@@ -740,7 +740,17 @@ function App() {
                 setTimeout(() => reject(new Error("html2canvas operation timed out after 30 seconds")), 10000);
             });
             
-            const canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
+            let canvas;
+            if (isSafari) {
+                const blob = await domtoimage.toBlob(exportContainer, {
+                    bgcolor: "#fff",
+                    quality: 1,
+                    style: { transform: "scale(1)" }
+                });
+                canvas = await createImageBitmap(blob); // mimic html2canvas output
+            } else {
+                canvas = await Promise.race([html2canvasPromise, timeoutPromise]);
+            }
             debugLog("html2canvas conversion completed", "success", "export");
             
             debugLog("Cleaning up export container", "info", "export");
@@ -762,7 +772,6 @@ function App() {
             
             // Detect iOS specifically
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
             
             debugLog(`Device detection - Mobile: ${isMobile}, iOS: ${isIOS}`, "info", "device");
             debugLog(`User Agent: ${navigator.userAgent}`, "info", "device");
